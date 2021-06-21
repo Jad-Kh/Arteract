@@ -21,7 +21,7 @@ export default function Navbar() {
               <div className="navIcons">
                 <Settings/>
               </div>
-              <img src="./images/profiletest.jpg" alt="" className="navAvatar"/>
+              <img src="https://cdn.discordapp.com/attachments/359402161194532869/856617609985523732/324716b51e5dc98c93ead3a74dfb409c.jpg" alt="" className="navAvatar"/>
           </div>
         </div>
     </div>
