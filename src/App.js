@@ -1,16 +1,8 @@
-import Navbar from "./components/navbar/navbar";
-import Sidebar from "./components/sidebar/sidebar";
+import Home from "./pages/Home/Home"
 import "./App.css";
 
 function App() {
-  return (
-    <div>
-      <Navbar />
-      <div className="sideContainer">
-        <Sidebar />
-      </div>
-    </div>
-  );
+  return <Home/>
 }
 
 export default App;
