@@ -1,14 +1,10 @@
-import Navbar from "./components/navbar/navbar";
-import Sidebar from "./components/sidebar/sidebar";
+import Sidebar from "./components/Sidebar/Sidebar";
 import "./App.css";
 
 function App() {
   return (
     <div>
-      <Navbar />
-      <div className="sideContainer">
-        <Sidebar />
-      </div>
+      <Sidebar />
     </div>
   );
 }
