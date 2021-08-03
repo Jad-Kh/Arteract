@@ -1,0 +1,67 @@
+.social {
+    flex: 3.5;
+}
+
+.socialContainer {
+    padding: 20px 20px 0 0;
+}
+
+.dailyPostsContainer {
+    display: flex;
+    align-items: center;
+}
+
+.dailyPostsIcon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.dailyPostsCounter {
+    font-weight: 300;
+    font-size: 15px;
+}
+
+.socialFriendsTitle {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.socialFriendList {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.socialFriend {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.socialFriendImgContainer {
+    margin-right: 10px;
+    position: relative;
+}
+
+.socialFriendImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.socialFriendOnlineBadge {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background-color: limegreen;
+    position: absolute;
+    top: -2px;
+    right: 0;
+    border: 2px solid white;
+}
+
+.socialFriendOnlineUsername {
+    font-weight: 500;
+}
