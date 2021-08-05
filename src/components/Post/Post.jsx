@@ -12,7 +12,7 @@ import { MoreVert, ThumbUp, ThumbDown, Favorite, ChatBubble } from "@material-ui
                         <span className="postDate">5 minutes ago</span>
                      </div> 
                      <div className="postTopRight">
-                         <MoreVert/>
+                         <MoreVert htmlColor="lightgreen"/>
                      </div>
                  </div>
                  <div className="postCenter">
@@ -21,16 +21,16 @@ import { MoreVert, ThumbUp, ThumbDown, Favorite, ChatBubble } from "@material-ui
                  </div>
                  <div className="postBottom">
                      <div className="postBottomLeft">
-                        <ThumbUp className="postIcon"/> 
+                        <ThumbUp htmlColor="lightgreen" className="postIcon"/> 
                         <span className="postLikeCounter">10</span>    
-                        <ThumbDown className="postIcon"/>
+                        <ThumbDown htmlColor="lightgreen" className="postIcon"/>
                         <span className="postDislikeCounter">5</span> 
-                        <Favorite className="postIcon"/>
+                        <Favorite htmlColor="lightgreen" className="postIcon"/>
                         <span className="postFavoriteCounter">2</span>  
                      </div>
                      <div className="postBottomRight">
                          <span className="postCommentCounter">8</span>
-                         <ChatBubble className="postIcon"/>
+                         <ChatBubble htmlColor="lightgreen" className="postIcon"/>
                      </div>
                  </div>
              </div>

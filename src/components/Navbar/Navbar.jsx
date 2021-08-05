@@ -15,8 +15,8 @@ export default function Navbar() {
             </div>
             <div className="navbarRight">
                 <div className="navbarLinks">
-                    <span className="navbarLink">Homepage</span>
-                    <span className="navbarLink">Timeline</span>
+                    <span className="navbarLink">Mainpage</span>
+                    <span className="navbarLink">Logout</span>
                 </div>
                 <div className="navbarIcons">
                     <div className="navbarIconItem">

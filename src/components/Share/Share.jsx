@@ -13,15 +13,15 @@ export default function Share() {
                 <div className="shareBottom">
                     <div className="shareOptions">
                         <div className="shareOptionsItem">
-                            <PermMedia className="shareIcon"/>
+                            <PermMedia htmlColor="lightgreen" className="shareIcon"/>
                             <span>Art Content</span>
                         </div>
                         <div className="shareOptionsItem">
-                            <Label className="shareIcon"/>
+                            <Label htmlColor="lightgreen" className="shareIcon"/>
                             <span>Tag</span>
                         </div>
                         <div className="shareOptionsItem">
-                            <EmojiEmotions className="shareIcon"/>
+                            <EmojiEmotions htmlColor="lightgreen" className="shareIcon"/>
                             <span>Emojies</span>
                         </div>
                     </div>
