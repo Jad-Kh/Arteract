@@ -1,5 +1,5 @@
 .sidebar {
-    flex: 3;
+    flex: 1.5;
     height: calc(100vh - 50px);
     overflow-y : scroll
 }
@@ -35,4 +35,26 @@
 
 .sidebarIcon {
     margin-right: 15px
+}
+
+@media only all and (max-width: 1040px) {
+
+    .sidebar {
+        flex: 0.5;
+    }
+
+    .sidebarContainer {
+        padding: 10px;
+    }
+
+    .sidebarMenuItem span {
+        display: none;
+    }
+}
+
+@media only all and (max-width: 800px) {
+
+    .sidebarContainer {
+        padding: 5px;
+    }
 }

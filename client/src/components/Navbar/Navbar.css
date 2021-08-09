@@ -93,3 +93,25 @@
     object-fit: cover;
     cursor: pointer;
 }
+
+@media only all and (max-width: 695px) {
+
+    .navbarLogo {
+        display: none;
+    }
+
+    .navbarLeft {
+        flex: 0.25;
+    }
+
+    .navbarCenter {
+        flex: 3;
+    }
+}
+
+@media only all and (max-width: 500px) {
+
+    .navbarCenter {
+        flex: 1.5;
+    }
+} 

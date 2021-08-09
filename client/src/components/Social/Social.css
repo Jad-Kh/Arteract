@@ -1,9 +1,9 @@
 .social {
-    flex: 3.5;
+    flex: 2.5;
 }
 
 .socialContainer {
-    padding: 20px 20px 0 0;
+    padding: 20px 20px 10px 10px;
 }
 
 .dailyPostsContainer {
@@ -64,4 +64,15 @@
 
 .socialFriendOnlineUsername {
     font-weight: 500;
+}
+
+@media only all and (max-width: 695px) {
+
+    .social {
+        flex: 0;
+    }
+
+    .socialContainer {
+        display: none;
+    }
 }

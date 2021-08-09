@@ -1,5 +1,5 @@
 import "./Sidebar.css"
-import { RssFeed, Person, PhotoLibrary, Portrait, AttachMoney, Group, HelpOutline }
+import { RssFeed, Person, PhotoLibrary, Portrait, AttachMoney, Group, Chat, HelpOutline }
 from "@material-ui/icons"
 
 export default function Sidebar() {
@@ -30,6 +30,10 @@ export default function Sidebar() {
                     <li className="sidebarMenuItem">
                         <Group htmlColor="#1877f2" className="sidebarIcon"/>
                         <span>Friends</span>
+                    </li>
+                    <li className="sidebarMenuItem">
+                        <Chat htmlColor="#1877f2" className="sidebarIcon"/>
+                        <span>Chat</span>
                     </li>
                     <li className="sidebarMenuItem">
                         <HelpOutline htmlColor="#1877f2" className="sidebarIcon"/>
