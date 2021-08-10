@@ -1,13 +1,14 @@
 import "./Share.css"
 import { PermMedia, Label, EmojiEmotions } from "@material-ui/icons"
+import { Users } from "../../trydata"
 
 export default function Share() {
     return (
         <div className="share">
             <div className="shareContainer">
                 <div className="shareTop">
-                    <img className="shareImg" src="" alt="" />
-                    <input className="shareInput" placeholder="What's on your mind [username]?"/>
+                    <img className="shareImg" src={ Users.filter((u) => u.id === 1992)[0].pfp } alt="" />
+                    <input className="shareInput" placeholder={ "What's on your mind " + Users.filter((u) => u.id === 1992)[0].username + "?"}/>
                 </div>
                 <hr className="shareLine"></hr>
                 <div className="shareBottom">

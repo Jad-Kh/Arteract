@@ -1,6 +1,5 @@
 .activity {
     flex: 6.5;    
-    overflow-y : scroll
 }
 
 ::-webkit-scrollbar {
@@ -17,4 +16,6 @@
 
 .activityContainer {
     padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }

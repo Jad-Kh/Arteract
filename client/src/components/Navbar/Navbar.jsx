@@ -1,5 +1,6 @@
 import "./Navbar.css"
 import { Search, Person, Chat, Notifications }  from "@material-ui/icons"
+import { Users } from "../../trydata"
 
 export default function Navbar() {
     return (
@@ -32,7 +33,7 @@ export default function Navbar() {
                         <span className="navbarIconBadge">1</span>
                     </div>
                 </div>
-                <img src="" alt="" className="navbarImg"/>
+                <img src={ Users.filter((u) => u.id === 1992)[0].pfp } alt="" className="navbarImg"/>
             </div>
         </div>
     );

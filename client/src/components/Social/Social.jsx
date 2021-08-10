@@ -1,5 +1,6 @@
 import "./Social.css"
 import { MarkunreadMailbox } from "@material-ui/icons";
+import { Users } from "../../trydata"
 
 export default function Social() {
     return (
@@ -11,27 +12,15 @@ export default function Social() {
                 </div>
                 <h4 className="socialFriendsTitle">Online Friends: </h4>
                 <ul className="socialFriendlist">
+                {Users.filter((user) => user.id !== 1992).map(u => (       
                     <li className="socialFriend">
                         <div className="socialFriendImgContainer">
-                            <img className="socialFriendImg" src="" alt=""/>
+                            <img className="socialFriendImg" src={u.pfp} alt=""/>
                             <span className="socialFriendOnlineBadge"></span>
                         </div>
-                        <span className="socialFriendOnlineUsername">Username</span>
+                        <span className="socialFriendOnlineUsername">{u.username}</span>
                     </li>
-                    <li className="socialFriend">
-                        <div className="socialFriendImgContainer">
-                            <img className="socialFriendImg" src="" alt=""/>
-                            <span className="socialFriendOnlineBadge"></span>
-                        </div>
-                        <span className="socialFriendOnlineUsername">Username</span>
-                    </li>
-                    <li className="socialFriend">
-                        <div className="socialFriendImgContainer">
-                            <img className="socialFriendImg" src="" alt=""/>
-                            <span className="socialFriendOnlineBadge"></span>
-                        </div>
-                        <span className="socialFriendOnlineUsername">Username</span>
-                    </li>
+                ))}
                 </ul>
             </div>
         </div>
