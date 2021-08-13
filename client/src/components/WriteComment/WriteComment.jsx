@@ -1,10 +1,10 @@
 import { createRef, useEffect, useState } from 'react';
-import "./Share.css"
-import { PermMedia, Label, EmojiEmotions } from "@material-ui/icons"
+import "./WriteComment.css"
+import { Label, EmojiEmotions } from "@material-ui/icons"
 import Picker from "emoji-picker-react"
 import { Users } from "../../trydata"
 
-export default function Share() {
+export default function WriteComment() {
 
     const inputRef = createRef();
     const [message, setMessage] = useState('');
@@ -37,30 +37,26 @@ export default function Share() {
     let emojiClass = hideState ? "emojiPickerContainerHidden" : "emojiPickerContainer" ;
 
     return (
-        <div className="share"> 
-            <div className="shareContainer">
-                <div className="shareTop">
-                    <img className="shareImg" src={ Users.filter((u) => u.id === 1992)[0].pfp } alt="" />
-                    <input className="shareInput" placeholder={ "What's on your mind " + Users.filter((u) => u.id === 1992)[0].username + "?" }
+        <div className="writeComment"> 
+            <div className="writeCommentContainer">
+                <div className="writeCommentTop">
+                    <img className="writeCommentImg" src={ Users.filter((u) => u.id === 1992)[0].pfp } alt="" />
+                    <input className="writeCommentInput" placeholder={ "What's on your mind " + Users.filter((u) => u.id === 1992)[0].username + "?" }
                      value={message} onChange={handleChange} ref={inputRef}/>
                 </div>
-                <hr className="shareLine"></hr>
-                <div className="shareBottom">
-                    <div className="shareOptions">
-                        <div className="shareOptionsItem">
-                            <PermMedia htmlColor="lightgreen" className="shareIcon"/>
-                            <span>Art Content</span>
-                        </div>
-                        <div className="shareOptionsItem">
-                            <Label htmlColor="lightgreen" className="shareIcon"/>
+                <hr className="writeCommentLine"></hr>
+                <div className="writeCommentBottom">
+                    <div className="writeCommentOptions">
+                        <div className="writeCommentOptionsItem">
+                            <Label htmlColor="lightgreen" className="writeCommentIcon"/>
                             <span>Tag</span>
                         </div>
-                        <div className="shareOptionsItem">
-                            <EmojiEmotions htmlColor="lightgreen" className="shareIcon" onClick={changeVisibility}/>
+                        <div className="writeCommentOptionsItem">
+                            <EmojiEmotions htmlColor="lightgreen" className="writeCommentIcon" onClick={changeVisibility}/>
                             <span>Emojies</span>
                         </div>
                     </div>
-                    <button className="shareButton">Post</button>
+                    <button className="writeCommentButton">Post</button>
                 </div>
                 { 
                 <div className={emojiClass}>

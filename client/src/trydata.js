@@ -46,7 +46,7 @@ export const Posts = [
         likes: 70,
         dislikes: 0,
         favorites: 34,
-        comments: 0
+        comments: 3
     },
     {
         id: 23365,
@@ -80,5 +80,29 @@ export const Posts = [
         dislikes: 3,
         favorites: 12,
         comments: 6
+    },
+]
+
+export const Comments = [
+    {
+        id: 445723,
+        desc: "Really good art!",
+        userId: 1993,
+        postId: 23364,
+        date: "2 minutes ago",
+    },
+    {
+        id: 445724,
+        desc: "Her hair looks amazing, well done!",
+        userId: 1994,
+        postId: 23364,
+        date: "3 minutes ago",
+    },
+    {
+        id: 445725,
+        desc: "You need to do comissions!",
+        userId: 1996,
+        postId: 23364,
+        date: "3 minutes ago",
     },
 ]
