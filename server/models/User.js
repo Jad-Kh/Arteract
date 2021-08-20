@@ -29,19 +29,23 @@ const userSchema = new mongoose.Schema({
     },
     friends: {
         type: Array,
-        default:[]
+        default: []
     },
     requests: {
         type: Array,
-        default:[]
+        default: []
     },
     followers: {
         type: Array,
-        default:[]
+        default: []
     },
     followins: {
         type: Array,
-        default:[]
+        default: []
+    },
+    favorties: {
+        type: Array,
+        default: []
     },
     isAdmin: {
         type: Boolean,
