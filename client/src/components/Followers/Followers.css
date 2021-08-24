@@ -1,0 +1,104 @@
+.followers {
+    flex: 1;
+}
+
+.followersContainer {
+    height: 300px;
+    overflow-y: scroll;
+    padding: 30px;
+    margin: 20px;
+    -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(179, 179, 179);
+}
+
+.followersTitle {
+    font-size: 20px;
+    color: #1662c7;
+}
+
+.followersImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.followersList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.followersListItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0px;
+}
+
+.followersUser {
+    display: flex;
+    flex-direction: column;
+}
+
+.followersUsername {
+    font-weight: 600;
+}
+
+.followersUsertitle {
+    font-weight: 300;
+}
+
+.followersButton {
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    padding: 7px 10px;
+    background-color: #eeeeF7;
+    color: #555;
+    cursor: pointer;
+}
+
+.followersIcon {
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+@media only all and (max-width: 1500px) {
+
+    .followersContainer {
+        padding: 20px;
+        margin: 10px;
+    }
+}
+
+@media only all and (max-width: 1450px) {
+
+    .followers {
+        flex: 0.75;
+    }
+
+    .followersImage {
+        display: none;
+    }
+}
+
+@media only all and (max-width: 695px) {
+
+    .followers {
+        display: none;
+    }
+}
