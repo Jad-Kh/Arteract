@@ -39,11 +39,12 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    text-align: left;
 }
 
 .followersListItem {
     display: flex;
-    align-items: center;
+    align-items: left;
     justify-content: space-between;
     margin: 20px 0px;
 }
@@ -51,6 +52,7 @@
 .followersUser {
     display: flex;
     flex-direction: column;
+    align-items: left;
 }
 
 .followersUsername {
