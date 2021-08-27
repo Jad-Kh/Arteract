@@ -1,0 +1,106 @@
+.requests {
+    flex: 1;
+}
+
+.requestsContainer {
+    height: 190px;
+    overflow-y: scroll;
+    padding: 30px;
+    margin: 20px;
+    -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(179, 179, 179);
+}
+
+.requestsTitle {
+    font-size: 20px;
+    color: #1662c7;
+}
+
+.requestsImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.requestsList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+
+.requestsListItem {
+    display: flex;
+    align-items: left;
+    justify-content: space-between;
+    margin: 20px 0px;
+}
+
+.requestsUser {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.requestsUsername {
+    font-weight: 600;
+}
+
+.requestsUsertitle {
+    font-weight: 300;
+}
+
+.requestsButton {
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    padding: 7px 10px;
+    background-color: #eeeeF7;
+    color: #555;
+    cursor: pointer;
+}
+
+.requestsIcon {
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+@media only all and (max-width: 1500px) {
+
+    .requestsContainer {
+        padding: 20px;
+        margin: 10px;
+    }
+}
+
+@media only all and (max-width: 1450px) {
+
+    .requests {
+        flex: 0.75;
+    }
+
+    .requestsImage {
+        display: none;
+    }
+}
+
+@media only all and (max-width: 695px) {
+
+    .requests {
+        display: none;
+    }
+}
