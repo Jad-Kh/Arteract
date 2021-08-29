@@ -1,0 +1,19 @@
+.userstatsContainer {
+    margin-bottom: 20px;
+}
+
+.userstatsList {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.userstatsStat {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.userstatsStatText {
+    font-size: 20px;
+}

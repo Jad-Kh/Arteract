@@ -1,0 +1,43 @@
+.transactionsContainer {
+    display: flex;
+}
+
+.transactionsMiddle {
+    flex: 9;
+    margin-top: 10px;
+}
+
+@media only all and (max-width: 1450px) {
+
+    .transactionsMiddle {
+        flex: 7;
+    }
+}
+
+@media only all and (max-width: 1080px) {
+
+    .transactionsMiddle {
+        flex: 8;
+    }
+}
+
+@media only all and (max-width: 695px) {
+
+    .transactionsMiddle {
+        flex: 7;
+    }
+}
+
+@media only all and (max-width: 635px) {
+
+    .transactionsMiddle {
+        flex: 6;
+    }
+}
+
+@media only all and (max-width: 500px) {
+
+    .transactionsMiddle {
+        flex: 5;
+    }
+}

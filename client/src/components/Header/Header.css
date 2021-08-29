@@ -1,0 +1,61 @@
+.headerTop {
+    height: 320px;
+    position: relative;
+}
+
+.headerCoverImg {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.headerProfileImg {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    top: 150px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border: 3px solid white;
+}
+
+.headerBottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerName {
+    font-size: 24px;
+}
+
+.headerDesc {
+    font-weight: 300;
+}
+
+.headerButton {
+    background-color: #1877f2;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px 10px;
+    cursor: pointer;
+}
+
+@media only all and (max-width: 800px) {
+
+    .headerButton {
+        width: 145px;
+        text-align: center;
+        padding: 8px 24px;
+        display: flex;
+    }
+}

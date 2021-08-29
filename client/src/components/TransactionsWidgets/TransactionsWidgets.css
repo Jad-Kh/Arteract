@@ -1,0 +1,18 @@
+.transactionsWidgets {
+    display: flex;
+    width: 100%;
+}
+
+@media only all and (max-width: 1450px) {
+
+    .transactionsWidgets {
+        flex: 3;
+    }
+}
+
+@media only all and (max-width: 695px) {
+
+    .transactionsWidgets {
+        flex: 1;
+    }
+}

@@ -1,0 +1,46 @@
+.profileContainer {
+    display: flex;
+}
+
+.profileRight {
+    flex: 9;
+}
+
+.profileRightBottom {
+    display: flex;
+}
+
+.profileRightBottomLeft {
+    flex: 6;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+.profileRightBottomRight {
+    flex: 1.5;
+    margin-top: 15px;
+    margin-left: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+}
+
+@media only all and (max-width: 750px) {
+
+    .profileRightBottomLeft {
+        flex: 5;
+    }
+
+    .profileRightBottomRight {
+        flex: 0;
+        display: none;
+    }
+}
+
+@media only all and (max-width: 600px) {
+
+    .profileRight {
+        flex: 5.5;
+    }
+}

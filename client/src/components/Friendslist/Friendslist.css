@@ -1,0 +1,57 @@
+.friendslist {
+    height: 600px;
+    flex: 7;
+    margin-top: 20px;
+    margin-left: 10px;
+    padding: 15px;
+    -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+}
+
+.friendslistImage {
+    display: flex;
+    align-items: center;
+}
+
+.friendslistImage img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+@media only all and (max-width: 1500px) {
+
+    .friendslist {
+        flex: 5;
+        margin-top: 10px;
+    }
+}
+
+@media only all and (max-width: 1450px) {
+
+    .friendslist {
+        flex: 6;
+    }
+}
+
+@media only all and (max-width: 1050px) {
+
+    .friendslist {
+        flex: 7;
+    }
+}
+
+@media only all and (max-width: 695px) {
+
+    .friendslist {
+        flex: 6;
+    }
+}
+
+@media only all and (max-width: 500px) {
+
+    .friendslist {
+        flex: 5;
+    }
+}

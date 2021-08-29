@@ -1,0 +1,32 @@
+.friends {
+    display: flex;
+}
+
+.friendsFollowers {
+    flex: 5;
+}
+
+@media only all and (max-width: 1500px) {
+
+    .friends {
+        flex: 7;
+    }
+
+    .friendsFollowers {
+        flex: 5;
+    }
+}
+
+@media only all and (max-width: 1450px) {
+
+    .friendsFollowers {
+        flex: 3;
+    }
+}
+
+@media only all and (max-width: 1060px) {
+
+    .friendsFollowers {
+        display: none;
+    }
+}
