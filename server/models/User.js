@@ -27,17 +27,33 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
+    friends: {
+        type: Array,
+        default: []
+    },
+    requests: {
+        type: Array,
+        default: []
+    },
     followers: {
         type: Array,
-        default:[]
+        default: []
     },
     followins: {
         type: Array,
-        default:[]
+        default: []
+    },
+    favorties: {
+        type: Array,
+        default: []
     },
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    description: {
+        type: String,
+        max: 50
     }
 },
 {
