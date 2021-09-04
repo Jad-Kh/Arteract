@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { response } = require('express');
 const Post = require("../models/Post");
 const User = require('../models/User');
 
@@ -12,7 +11,6 @@ router.post("/", async (request, response) => {
     } catch (error) {
         return response.status(500).json(error);
     }
-
 });
 
 // UPDATE POST
@@ -122,10 +120,41 @@ router.get("/:id", async(request, response) => {
 });
 
 // GET POSTS OF USER 
-router.get("/posts", async(request, response) => {
+router.get("/posts/:userId", async(request, response) => {
     try {
-        const user = await User.findById(request.body.userId);
+        const user = await User.findById(request.params.userId);
         const posts = await Post.find({ userId: user._id });
+        return response.status(200).json(posts);
+    } catch(error) {
+        return response.status(500).json(error);
+    }
+});
+
+
+// GET ACTIVITY POST
+router.get("/activity/:userId", async(request, response) => {
+    try {
+        const user = await User.findById(request.params.userId);
+        const posts = await Post.find({ userId: user._id });
+        const otherPosts = await Promise.all(
+            user.friends.map( async(friendId) => {
+                const friendPost = await Post.find({ userId: friendId });
+                if(friendPost.length != 0) {
+                    friendPost.map((post) => {
+                        posts.push(post);
+                    });
+                }
+            }),
+            user.followins.map( async(followinId) => {
+                const followinPost = await Post.find({ userId: followinId });
+                if(followinPost.length != 0) {
+                    followinPost.map((post) => {
+                        posts.push(post);
+                    });
+                }
+            })
+        )   
+        console.log(posts.length);
         return response.status(200).json(posts);
     } catch(error) {
         return response.status(500).json(error);

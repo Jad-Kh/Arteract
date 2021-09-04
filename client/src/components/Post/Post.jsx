@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import "./Post.css"
-import { MoreVert, ThumbUp, ThumbDown, Favorite, ChatBubble } from "@material-ui/icons"
 import { Users } from "../../trydata"
+import { MoreVert, ThumbUp, ThumbDown, Favorite, ChatBubble } from "@material-ui/icons"
+import axios from "axios";
 
 export default function Post({post}) {
 
-    const [like, setLike] = useState(post?.likes);
-    const [dislike, setDislike] = useState(post?.dislikes);
-    const [favorite, setFavorite] = useState(post?.favorites);
+    const [like, setLike] = useState(post.likes.length);
+    const [dislike, setDislike] = useState(post.dislikes.length);
+    const [favorite, setFavorite] = useState(post.favorites.length);
 
     const [isLiked, setIsLiked] = useState(false);
     const [isDisliked, setIsDisliked] = useState(false);
@@ -34,24 +35,33 @@ export default function Post({post}) {
         setIsDisliked(isDisliked ? !isDisliked : isDisliked);
     }
 
+    const [ user, setUser ] = useState({});
+    useEffect(() => {
+        const fetchUser = async() => {
+            const response = await axios.get(`users/${post.userId}`);
+            setUser(response.data);
+        }
+        fetchUser();
+    },[])
+
      return (
          <div className="post">
              <div className="postContainer">
                  <div className="postTop">
                      <div className="postTopLeft">
-                        <img className="postImg" src={ Users.filter((u) => u.id === post.userId)[0].pfp} alt=""/>
+                        <img className="postImg" src={"assets/avatars/" + user.profilePicture || "assets/avatars/default.jpg"} alt=""/>
                         <span className="postUsername">
-                            { Users.filter((u) => u.id === post.userId)[0].username}
+                            {user.username}
                         </span>
-                        <span className="postDate">{post?.date}</span>
+                        <span className="postDate">{post.createdAt}</span>
                      </div> 
                      <div className="postTopRight">
                          <MoreVert htmlColor="lightgreen"/>
                      </div>
                  </div>
                  <div className="postCenter">
-                     <span className="postText">{post?.desc}</span>
-                     <img className="postContentImg" src={post?.photo} alt=""/>
+                     <span className="postText">{post.description}</span>
+                     <img className="postContentImg" src={"assets/posts/" + post.image} alt=""/>
                  </div>
                  <div className="postBottom">
                      <div className="postBottomLeft">
@@ -63,7 +73,7 @@ export default function Post({post}) {
                         <span className="postFavoriteCounter">{favorite}</span>  
                      </div>
                      <div className="postBottomRight">
-                         <span className="postCommentCounter">{post?.comments}</span>
+                         <span className="postCommentCounter">{post.comments.length}</span>
                          <ChatBubble htmlColor="lightgreen" className="postIcon"/>
                      </div>
                  </div>
