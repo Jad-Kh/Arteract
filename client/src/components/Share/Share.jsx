@@ -46,7 +46,7 @@ export default function Share() {
         <div className="share"> 
             <div className="shareContainer">
                 <div className="shareTop">
-                    <img className="shareImg" src={user.profilePicture} alt="" />
+                    <img className="shareImg" src={"assets/avatars/" + user.profilePicture} alt="" />
                     <input className="shareInput" placeholder={ "What's on your mind " + user.username + "?" }
                      value={message} onChange={handleChange} ref={inputRef}/>
                 </div>

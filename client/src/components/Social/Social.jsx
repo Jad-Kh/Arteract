@@ -26,9 +26,9 @@ export default function Social() {
                 {friends.map(friend => (       
                     <li className="socialFriend">
                         <div className="socialFriendImgContainer">
-                            <img className="socialFriendImg" src={friend.profilePicture} alt=""/>
+                            <img className="socialFriendImg" src={"assets/avatar/" + friend.profilePicture} alt=""/>
                             <span className="socialFriendOnlineBadge"></span>
-                        </div>
+                        </div>1
                         <span className="socialFriendOnlineUsername">{friend.username}</span>
                     </li>
                 ))}

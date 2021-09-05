@@ -154,7 +154,6 @@ router.get("/activity/:userId", async(request, response) => {
                 }
             })
         )   
-        console.log(posts.length);
         return response.status(200).json(posts);
     } catch(error) {
         return response.status(500).json(error);

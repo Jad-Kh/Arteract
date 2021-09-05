@@ -44,7 +44,7 @@ export default function Navbar() {
                         <span className="navbarIconBadge">1</span>
                     </div>
                 </div>
-                <img src={user.profilePicture} alt="" className="navbarImg"/>
+                <img src={"assets/avatars/" + user.profilePicture} alt="" className="navbarImg"/>
             </div>
         </div>
     );
