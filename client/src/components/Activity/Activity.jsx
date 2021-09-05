@@ -21,7 +21,7 @@ export default function Activity() {
             <div className="activityContainer">
                 <Share/>
                 {posts.map(p => (
-                    <Post key={p.id} post={p} />
+                    <Post key={p._id} post={p} />
                 ))}
             </div>
         </div>

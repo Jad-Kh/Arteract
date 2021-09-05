@@ -2,7 +2,7 @@ import { createRef, useEffect, useState } from 'react';
 import "./Share.css"
 import { PermMedia, Label, EmojiEmotions } from "@material-ui/icons"
 import Picker from "emoji-picker-react"
-import { Users } from "../../trydata"
+import axios from "axios";
 
 export default function Share() {
 
@@ -29,10 +29,16 @@ export default function Share() {
     const handleChange = e => {
         setMessage(e.target.value);
     }
-    
+
+    const [ user, setUser ] = useState({});
     useEffect(() => {
+        const fetchUser = async() => {
+            const response = await axios.get(`users/612f91749c6548039c771b25`);
+            setUser(response.data);
+        }
+        fetchUser();
         inputRef.current.selectionEnd = cursorPosition;
-    }, [cursorPosition]);
+    }, [cursorPosition])
 
     let emojiClass = hideState ? "emojiPickerContainerHidden" : "emojiPickerContainer" ;
 
@@ -40,8 +46,8 @@ export default function Share() {
         <div className="share"> 
             <div className="shareContainer">
                 <div className="shareTop">
-                    <img className="shareImg" src={ Users.filter((u) => u.id === 1992)[0].pfp } alt="" />
-                    <input className="shareInput" placeholder={ "What's on your mind " + Users.filter((u) => u.id === 1992)[0].username + "?" }
+                    <img className="shareImg" src={user.profilePicture} alt="" />
+                    <input className="shareInput" placeholder={ "What's on your mind " + user.username + "?" }
                      value={message} onChange={handleChange} ref={inputRef}/>
                 </div>
                 <hr className="shareLine"></hr>

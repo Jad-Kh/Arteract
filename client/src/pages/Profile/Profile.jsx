@@ -5,10 +5,22 @@ import Share from "../../components/Share/Share"
 import Post from "../../components/Post/Post"
 import Friends from "../../components/Friends/Friends"
 import UserStats from "../../components/UserStats/UserStats"
+import axios from "axios"
+import { useState, useEffect } from "react"
 import "./Profile.css"
-import { Posts } from "../../trydata"
+
 
 export default function Profile() {
+
+    const [ posts, setPosts ] = useState([]);
+    useEffect(() => {
+        const fetchPosts = async() => {
+            const response = await axios.get("posts/posts/612f91749c6548039c771b25");
+            setPosts(response.data);
+        }
+        fetchPosts();
+    },[])
+
     return (
         <div>
             <Navbar/>
@@ -21,8 +33,8 @@ export default function Profile() {
                     <div className="profileRightBottom">
                         <div className="profileRightBottomLeft">
                             <Share/>
-                            {Posts.filter((post) => post.userId === 1992).map(p => (
-                                <Post key={p.id} post={p} />
+                            {posts.map(p => (
+                                <Post key={p._id} post={p} />
                             ))}
                         </div>
                         <div className="profileRightBottomRight">

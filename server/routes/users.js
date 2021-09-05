@@ -219,4 +219,21 @@ router.put("/:id/removefriend", async (request, response) => {
     }
 });
 
+
+// GET USER FRIENDS 
+router.get("/:id/friends", async(request, response) => {
+    try {
+        const user = await User.findById(request.params.id); 
+        const friends = await Promise.all(
+            user.friends.map( async(friendId) => {
+                const friend = await User.findById(friendId);
+                return friend;
+            }),
+        )
+        return response.status(200).json(friends);
+    } catch(error) {
+        return response.status(500).json(error);
+    }
+});
+
 module.exports = router;

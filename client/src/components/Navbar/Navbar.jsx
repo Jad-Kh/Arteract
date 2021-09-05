@@ -1,8 +1,19 @@
 import "./Navbar.css"
 import { Search, Person, Chat, Notifications }  from "@material-ui/icons"
-import { Users } from "../../trydata"
+import { useState, useEffect } from 'react'
+import axios from "axios";
 
 export default function Navbar() {
+
+    const [ user, setUser ] = useState({});
+    useEffect(() => {
+        const fetchUser = async() => {
+            const response = await axios.get(`users/612f91749c6548039c771b25`);
+            setUser(response.data);
+        }
+        fetchUser();
+    }, [])
+
     return (
         <div className="navbarContainer">
             <div className="navbarLeft">
@@ -33,7 +44,7 @@ export default function Navbar() {
                         <span className="navbarIconBadge">1</span>
                     </div>
                 </div>
-                <img src={ Users.filter((u) => u.id === 1992)[0].pfp } alt="" className="navbarImg"/>
+                <img src={user.profilePicture} alt="" className="navbarImg"/>
             </div>
         </div>
     );

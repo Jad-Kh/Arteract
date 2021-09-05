@@ -1,8 +1,19 @@
 import "./Social.css"
 import { MarkunreadMailbox } from "@material-ui/icons";
-import { Users } from "../../trydata"
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function Social() {
+
+    const [ friends, setFriends ] = useState([]);
+    useEffect(() => {
+        const fetchFriends = async() => {
+            const response = await axios.get("users/612f91749c6548039c771b25/friends");
+            setFriends(response.data);
+        }
+        fetchFriends();
+    },[])
+
     return (
         <div className="social">
             <div className="socialContainer">
@@ -12,13 +23,13 @@ export default function Social() {
                 </div>
                 <h4 className="socialFriendsTitle">Online Friends: </h4>
                 <ul className="socialFriendlist">
-                {Users.filter((user) => user.id !== 1992).map(u => (       
+                {friends.map(friend => (       
                     <li className="socialFriend">
                         <div className="socialFriendImgContainer">
-                            <img className="socialFriendImg" src={u.pfp} alt=""/>
+                            <img className="socialFriendImg" src={friend.profilePicture} alt=""/>
                             <span className="socialFriendOnlineBadge"></span>
                         </div>
-                        <span className="socialFriendOnlineUsername">{u.username}</span>
+                        <span className="socialFriendOnlineUsername">{friend.username}</span>
                     </li>
                 ))}
                 </ul>
