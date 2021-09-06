@@ -4,14 +4,13 @@ import axios from "axios";
 
 export default function UserStats() {
 
-    const [ user, setUser ] = useState({});
+    const [ posts, setPosts ] = useState({});
     useEffect(() => {
-        const fetchUser = async() => {
-            const response = await axios.get(`users/612f91749c6548039c771b25`);
-            setUser(response.data);
-            console.log(user);
+        const fetchPosts = async() => {
+            const response = await axios.get(`posts/posts/612f91749c6548039c771b25`);
+            setPosts(response.data);
         }
-        fetchUser();
+        fetchPosts();
     }, [])
 
     return (
@@ -25,10 +24,7 @@ export default function UserStats() {
                         <span className="userstatsStatText">Uploads: 6</span>
                     </li>
                     <li className="userstatsStat">
-                        <span className="userstatsStatText">Posts: 15</span>
-                    </li>
-                    <li className="userstatsStat">
-                        <span className="userstatsStatText">{"Favorites: " + user.favorties.length}</span>
+                        <span className="userstatsStatText">{"Posts: " + posts.length}</span>
                     </li>
                 </ul>
             </div>
