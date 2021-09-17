@@ -28,7 +28,7 @@ export default function Social() {
                         <div className="socialFriendImgContainer">
                             <img className="socialFriendImg" src={"assets/avatar/" + friend.profilePicture} alt=""/>
                             <span className="socialFriendOnlineBadge"></span>
-                        </div>1
+                        </div>
                         <span className="socialFriendOnlineUsername">{friend.username}</span>
                     </li>
                 ))}

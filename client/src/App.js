@@ -3,6 +3,8 @@ import Profile from "./pages/Profile/Profile";
 import CommentSection from "./pages/CommentSection/CommentSection";
 import Transactions from "./pages/Transactions/Transactions";
 import Friends from "./pages/Friends/Friends";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 import "./App.css";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -25,6 +27,12 @@ function App() {
         </Route>
         <Route path="/friends">
           <Friends/>
+        </Route>
+        <Route path="/login">
+          <Login/>
+        </Route>
+        <Route path="/register">
+          <Register/>
         </Route>
       </Switch>
     </Router>
