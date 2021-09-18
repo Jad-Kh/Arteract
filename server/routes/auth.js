@@ -14,7 +14,7 @@ router.post("/register", async (request, response) => {
         });
 
         const register = await user.save();
-        response.send(200).json(register);
+        return response.status(200).json(register);
     } catch(error) {
         console.log(error);
     }
@@ -28,7 +28,7 @@ router.post("/login", async (request, response) => {
         const validPassword = await bcrypt.compare(request.body.password, user.password);
         !validPassword && response.status(400).json("wrong password");
 
-        response.send(200).json(user);
+        return response.status(200).json(user);
     } catch(error) {
         console.log(error);
     }
