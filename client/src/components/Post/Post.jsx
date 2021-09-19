@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import "./Post.css"
-import { Users } from "../../trydata"
 import { MoreVert, ThumbUp, ThumbDown, Favorite, ChatBubble } from "@material-ui/icons"
 import axios from "axios";
 import { format } from "timeago.js"
+import { AuthContext } from '../../context/AuthContext';
 
 export default function Post({post}) {
+
+    const { user:currentUser } = useContext(AuthContext);
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
     const [like, setLike] = useState(post.likes.length);
     const [dislike, setDislike] = useState(post.dislikes.length);
@@ -16,6 +19,11 @@ export default function Post({post}) {
     const [isFavorited, setIsFavorited] = useState(false);
 
     const handleLike = () => {
+        try {
+            axios.put("/posts/" + post._id + "/like", { userId: currentUser._id });
+        } catch(error) {
+            console.log(error);
+        }
         setLike(isLiked ? like-1 : like+1);
         setDislike(isDisliked ? dislike-1 : dislike);
         setIsLiked(!isLiked);
@@ -23,6 +31,11 @@ export default function Post({post}) {
     }
 
     const handleDislike = () => {
+        try {
+            axios.put("/posts/" + post._id + "/dislike", { userId: currentUser._id });
+        } catch(error) {
+            console.log(error);
+        }
         setDislike(isDisliked ? dislike-1 : dislike+1);
         setLike(isLiked ? like-1 : like);
         setIsDisliked(!isDisliked);
@@ -30,6 +43,11 @@ export default function Post({post}) {
     }
 
     const handleFavorite = () => {
+        try {
+            axios.put("/posts/" + post._id + "/favorite", { userId: currentUser._id });
+        } catch(error) {
+            console.log(error);
+        }
         setFavorite(isFavorited ? favorite-1 : favorite+1);
         setDislike(isDisliked ? dislike-1 : dislike);
         setIsFavorited(!isFavorited);
@@ -42,15 +60,21 @@ export default function Post({post}) {
             const response = await axios.get(`users/${post.userId}`);
             setUser(response.data);
         }
+        setIsLiked(post.likes.includes(currentUser._id));
+        setIsDisliked(post.likes.includes(currentUser._id));
+        setIsFavorited(post.likes.includes(currentUser._id));
         fetchUser();
-    }, [post.userId])
+    }, [post.userId, currentUser._id])
 
      return (
          <div className="post">
              <div className="postContainer">
                  <div className="postTop">
                      <div className="postTopLeft">
-                        <img className="postImg" src={"assets/avatars/" + user.profilePicture || "assets/avatars/default.jpg"} alt=""/>
+                        <img className="postImg" src={user.profilePicture 
+                                                        ? PF + "avatars/" + user.profilePicture 
+                                                        : PF + "avatars/default.jpg"
+                                                     } alt=""/>
                         <span className="postUsername">
                             {user.username}
                         </span>
@@ -62,7 +86,7 @@ export default function Post({post}) {
                  </div>
                  <div className="postCenter">
                      <span className="postText">{post.description}</span>
-                     <img className="postContentImg" src={"assets/posts/" + post.image} alt=""/>
+                     <img className="postContentImg" src={PF + "posts/" + post.image} alt=""/>
                  </div>
                  <div className="postBottom">
                      <div className="postBottomLeft">
