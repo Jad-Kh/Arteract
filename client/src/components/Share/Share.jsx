@@ -35,6 +35,32 @@ export default function Share() {
         setMessage(e.target.value);
     }
 
+    const submitHandler = async(e) => {
+        e.preventDefault()
+        const newPost = {
+            userId: user._id,
+            description: inputRef.current.value
+        }
+        if(file) {
+            const data = new FormData();
+            const filename = (Date.now() + file.name).slice(0,9) + (Date.now() + file.name).slice(-4); // Date added to prevent conflict If 2 users uploaded a picture with same name
+            data.append("file", file);
+            data.append("name", filename);
+            newPost.image = filename;
+            try {
+                await axios.post("/upload", data);
+            } catch(error) {
+                console.log(error);
+            }
+        }
+        try {
+            await axios.post("/posts", newPost);
+            window.location.reload();
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     const [ user, setUser ] = useState({});
     useEffect(() => {
         const fetchUser = async() => {
@@ -60,7 +86,7 @@ export default function Share() {
                      value={message} onChange={handleChange} ref={inputRef}/>
                 </div>
                 <hr className="shareLine"></hr>
-                <form className="shareBottom">
+                <form className="shareBottom" onSubmit={submitHandler}>
                     <div className="shareOptions">
                         <label htmlFor="file" className="shareOptionsItem">
                             <div class="fileUpload">
@@ -68,8 +94,7 @@ export default function Share() {
                             </div>
                             <span>Art Content</span>
                             <input type="file" id="file" accept=".png,.jpeg,.jpg,.gif" style={{ display: "none" }}
-                                   onChange={ (e) => setFile(e.target.files[0]) }>
-                            </input>
+                                   onChange={ (e) => setFile(e.target.files[0]) }/>
                         </label>
                         <div className="shareOptionsItem">
                             <Label htmlColor="lightgreen" className="shareIcon"/>
