@@ -57,14 +57,14 @@ export default function Post({post}) {
     const [ user, setUser ] = useState({});
     useEffect(() => {
         const fetchUser = async() => {
-            const response = await axios.get(`users/${post.userId}`);
+            const response = await axios.get(`/users/${post.userId}`);
             setUser(response.data);
         }
         setIsLiked(post.likes.includes(currentUser._id));
         setIsDisliked(post.likes.includes(currentUser._id));
         setIsFavorited(post.likes.includes(currentUser._id));
         fetchUser();
-    }, [post.userId, currentUser._id])
+    }, [user, post.userId, currentUser._id])
 
      return (
          <div className="post">

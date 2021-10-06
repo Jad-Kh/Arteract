@@ -1,6 +1,6 @@
 import "./Navbar.css"
 import { Search, Person, Chat, Notifications }  from "@material-ui/icons"
-import { useState, useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import { AuthContext } from "../../context/AuthContext"
 import axios from "axios";
 

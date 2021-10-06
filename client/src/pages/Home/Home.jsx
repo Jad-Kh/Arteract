@@ -5,6 +5,7 @@ import Social from "../../components/Social/Social"
 import "./Home.css"
 
 export default function Home() {
+    
     return (
         <div>
             <Navbar/>

@@ -54,6 +54,17 @@ router.get("/:id", async (request, response) => {
     }
 });
 
+// GET USER BY NAME
+router.get("/user/:username", async (request, response) => {
+    try {
+        const user = await User.findOne({ username: request.params.username });
+        const {password, updatedAt, ... other} = user._doc;
+        return response.status(200).json(other);
+    } catch(error) {
+        return response.status(500).json(error);
+    }
+});
+
 // FOLLOW USER 
 router.put("/:id/follow", async (request, response) => {
     if(request.body.userId !== request.params.id)
@@ -218,7 +229,6 @@ router.put("/:id/removefriend", async (request, response) => {
         return response.status(403).json("You can't remove yourself");
     }
 });
-
 
 // GET USER FRIENDS 
 router.get("/:id/friends", async(request, response) => {

@@ -10,17 +10,19 @@ import "./App.css";
 import { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
+import axios from "axios"
 
 function App() {
 
   const { user } = useContext(AuthContext);
+
   return (
     <Router>
       <Switch>
         <Route exact path="/">
           { user ? <Home/> : <Login/> }
         </Route>
-        <Route path="/profile">
+        <Route path="/profile/:username">
           <Profile/>
         </Route>
         <Route path="/transactions">

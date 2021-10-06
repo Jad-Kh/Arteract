@@ -2,16 +2,18 @@ import "./UserStats.css"
 import { useState, useEffect } from 'react'
 import axios from "axios";
 
-export default function UserStats() {
+export default function UserStats({user}) {
+
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
     const [ posts, setPosts ] = useState({});
     useEffect(() => {
         const fetchPosts = async() => {
-            const response = await axios.get(`posts/posts/612f91749c6548039c771b25`);
+            const response = await axios.get("/posts/profile/" + user._id);
             setPosts(response.data);
-        }
+        };     
         fetchPosts();
-    }, [])
+    }, [user])
 
     return (
         <div className="userstats">

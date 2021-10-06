@@ -120,10 +120,9 @@ router.get("/:id", async(request, response) => {
 });
 
 // GET POSTS OF USER 
-router.get("/posts/:userId", async(request, response) => {
+router.get("/profile/:id", async(request, response) => {
     try {
-        const user = await User.findById(request.params.userId);
-        const posts = await Post.find({ userId: user._id });
+        const posts = await Post.find({ userId: request.params.id });
         return response.status(200).json(posts);
     } catch(error) {
         return response.status(500).json(error);

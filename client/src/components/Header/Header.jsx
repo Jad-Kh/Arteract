@@ -1,25 +1,23 @@
 import "./Header.css"
-import { useState, useEffect } from 'react'
-import axios from "axios";
 
-export default function Header() {
+export default function Header({user}) {
 
-    const [ user, setUser ] = useState({});
-    useEffect(() => {
-        const fetchUser = async() => {
-            const response = await axios.get(`users/612f91749c6548039c771b25`);
-            setUser(response.data);
-            console.log(user);
-        }
-        fetchUser();
-    }, [])
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
     return (
         <div className="header">
             <div className="headerContainer">
                 <div className="headerTop">
-                    <img className="headerCoverImg" src={"assets/backgrounds/" + user.coverPicture} alt=""/>
-                    <img className="headerProfileImg" src={"assets/avatars/" + user.profilePicture} alt=""/>
+                    <img className="headerCoverImg" src={
+                                                            user.coverPicture
+                                                            ? PF + "backgrounds/" + user.coverPicture
+                                                            : PF + "backgrounds/default.jpg"
+                                                        } alt=""/>
+                    <img className="headerProfileImg" src={
+                                                            user.profilePicture
+                                                            ? PF + "avatars/" + user.profilePicture
+                                                            : PF + "avatars/default.jpg"
+                                                          } alt=""/>
                     <button className="headerButton">Add Friend</button>
                     <button className="headerButton">Follow    </button>
                 </div>

@@ -2,16 +2,18 @@ import "./Friends.css"
 import { useState, useEffect } from 'react'
 import axios from "axios";
 
-export default function Friends() {
+export default function Friends({user}) {
+
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
     const [ friends, setFriends ] = useState([]);
-    useEffect(() => {
+    useEffect(() => { 
         const fetchFriends = async() => {
-            const response = await axios.get("users/612f91749c6548039c771b25/friends");
+            const response = await axios.get("/users/" + user._id + "/friends");
             setFriends(response.data);
-        }
+        }      
         fetchFriends();
-    },[])
+    }, [user])
 
     return (
         <div className="friends">
@@ -21,7 +23,11 @@ export default function Friends() {
                     {friends.map(friend => (       
                         <li className="friendsFriend">
                             <div className="friendsFriendImgContainer">
-                                <img className="friendsFriendImg" src={"assets/avatar/" + friend.profilePicture} alt=""/>
+                                <img className="friendsFriendImg" src={
+                                                                        friend.profilePicture
+                                                                        ? PF + "/avatar/" + friend.profilePicture
+                                                                        : PF + "/avatar/default.jpg"
+                                                                      } alt=""/>
                                 <span className="friendsFriendOnlineBadge"></span>
                             </div>
                         </li>

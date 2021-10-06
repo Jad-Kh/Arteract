@@ -64,7 +64,7 @@ export default function Share() {
     const [ user, setUser ] = useState({});
     useEffect(() => {
         const fetchUser = async() => {
-            const response = await axios.get("users/" + currentUser._id);
+            const response = await axios.get("/users/" + currentUser._id);
             setUser(response.data);
         }
         fetchUser();
