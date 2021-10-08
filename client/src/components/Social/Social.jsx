@@ -1,14 +1,16 @@
 import "./Social.css"
 import { MarkunreadMailbox } from "@material-ui/icons";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext"
 import axios from "axios";
 
 export default function Social() {
 
+    const { user } = useContext(AuthContext);
     const [ friends, setFriends ] = useState([]);
     useEffect(() => {
         const fetchFriends = async() => {
-            const response = await axios.get("users/612f91749c6548039c771b25/friends");
+            const response = await axios.get("/users/" + user._id + "/friends");
             setFriends(response.data);
         }
         fetchFriends();
