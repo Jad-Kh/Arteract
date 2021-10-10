@@ -95,6 +95,27 @@
     cursor: pointer;
 }
 
+.navbarDropdown {
+    position: relative;
+    display: inline-block;
+}
+  
+.navbarDropdownContent {
+    display: none;
+    position: absolute;
+    color: #1877f2;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    right: 0;
+}
+  
+.navbarDropdown:hover .navbarDropdownContent {
+    display: block;
+}
+
 @media only all and (max-width: 695px) {
 
     .navbarLogo {

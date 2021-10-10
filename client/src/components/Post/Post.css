@@ -81,3 +81,24 @@
     cursor: pointer;
     font-size: 15px;
 }
+
+.postDropdown {
+    position: relative;
+    display: inline-block;
+}
+  
+.postDropdownContent {
+    display: none;
+    position: absolute;
+    color: #1877f2;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    right: 0;
+}
+  
+.postDropdown:hover .postDropdownContent {
+    display: block;
+}

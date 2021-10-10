@@ -7,7 +7,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 export default function Post({post}) {
 
-    const { user:currentUser } = useContext(AuthContext);
+    const { user: currentUser } = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
     const [like, setLike] = useState(post.likes.length);
@@ -81,7 +81,15 @@ export default function Post({post}) {
                         <span className="postDate">{format(post.createdAt)}</span>
                      </div> 
                      <div className="postTopRight">
+                         <div className="postDropdown">
                          <MoreVert htmlColor="lightgreen"/>
+                         { user._id === currentUser._id &&  
+                            <div className="postDropdownContent">
+                                <p>Edit</p>
+                                <p>Delete</p>
+                            </div>
+                         }
+                         </div>
                      </div>
                  </div>
                  <div className="postCenter">

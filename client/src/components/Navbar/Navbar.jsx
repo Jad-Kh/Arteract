@@ -39,11 +39,18 @@ export default function Navbar() {
                         <span className="navbarIconBadge">1</span>
                     </div>
                 </div>
-                <img src={
-                            user.profilePicture
-                            ? PF + "avatars/" + user.profilePicture
-                            : PF + "avatars/default.jpg"
-                         } alt="" className="navbarImg"/>
+                <div className="navbarDropdown">
+                    <img src={
+                                user.profilePicture
+                                ? PF + "avatars/" + user.profilePicture
+                                : PF + "avatars/default.jpg"
+                            } alt="" className="navbarImg"/>
+                    <div className="navbarDropdownContent">
+                        <p>Edit Profile</p>
+                        <p>Settings</p>
+                        <p>Log out</p>
+                    </div>
+                </div>
             </div>
         </div>
     );
