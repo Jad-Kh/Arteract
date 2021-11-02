@@ -8,7 +8,7 @@ export default function Friendslist({user}) {
 
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user: currentUser } = useContext(AuthContext);
-
+  const [ selectedFriend, setSelectedFriend ] = useState(0);
   const [ friends, setFriends ] = useState([]); 
   useEffect(() => {
       const fetchFriends = async() => {
@@ -17,6 +17,14 @@ export default function Friendslist({user}) {
       };      
       fetchFriends(); 
   }, [user, friends]);
+
+  const handleRemove = async() => {
+    try {
+        await axios.put("/users/" + selectedFriend + "/removefriend", { userId: currentUser._id });  
+    } catch(error) {
+        console.log(error)
+    }
+}
 
   const Button = ({type}) => {
     return <button className={"friendslistTableButton " + type}>{type}</button>
@@ -60,7 +68,11 @@ export default function Friendslist({user}) {
                           {
                             user._id === currentUser._id && 
                             <td className="friendsListTableStatus">
-                                <Button type="Remove"/>
+                                <button className="friendslistTableRemoveButton" onMouseEnter={() => setSelectedFriend(friend._id)} 
+                                                                                 onMouseLeave={() => setSelectedFriend(0)}
+                                                                                 onClick={handleRemove}>
+                                    Remove
+                                </button>
                             </td>
                           }
                       </tr>
