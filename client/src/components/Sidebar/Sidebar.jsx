@@ -13,10 +13,12 @@ export default function Sidebar() {
         <div className="sidebar">
             <div className="sidebarContainer">
                 <ul className="sidebarMenu">
+                    <Link to={"/"} style={{ textDecoration: "none "}}>
                     <li className="sidebarMenuItem">
                         <RssFeed htmlColor="#1877f2" className="sidebarIcon"/>
                         <span>Activity</span>
                     </li>
+                    </Link>
                     <Link to={`/profile/${user.username}`} style={{ textDecoration: "none" }}>
                     <li className="sidebarMenuItem">
                         <Person htmlColor="#1877f2" className="sidebarIcon"/>
@@ -31,14 +33,18 @@ export default function Sidebar() {
                         <Portrait htmlColor="#1877f2" className="sidebarIcon"/>
                         <span>Portfolio</span>
                     </li>
+                    <Link to={"/transactions"} style={{ textDecoration: "none" }}>
                     <li className="sidebarMenuItem">
                         <AttachMoney htmlColor="#1877f2" className="sidebarIcon"/>
                         <span>Transactions</span>
                     </li>
+                    </Link>
+                    <Link to={`/friends/${user.username}`} style={{ textDecoration: "none" }}>
                     <li className="sidebarMenuItem">
                         <Group htmlColor="#1877f2" className="sidebarIcon"/>
                         <span>Friends</span>
                     </li>
+                    </Link>
                     <li className="sidebarMenuItem">
                         <Chat htmlColor="#1877f2" className="sidebarIcon"/>
                         <span>Chat</span>

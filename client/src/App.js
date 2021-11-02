@@ -31,7 +31,7 @@ function App() {
         <Route path="/comments">
           <CommentSection/>
         </Route>
-        <Route path="/friends">
+        <Route path="/friends/:username">
           <Friends/>
         </Route>
         <Route path="/login">

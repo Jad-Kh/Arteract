@@ -1,52 +1,72 @@
 import "./Friendslist.css"
-import { DataGrid } from "@material-ui/data-grid";
+import { useState, useEffect, useContext, useParams } from 'react'
+import { Link } from "react-router-dom"
+import { AuthContext } from "../../context/AuthContext"
+import axios from "axios";
 
-export default function Friendslist() {
+export default function Friendslist({user}) {
 
-    const columns = [
-        { 
-            field: 'id', 
-            headerName: '#', 
-            width: 10,
-            sortable: false,
-        },
-        { 
-          field: 'pfp', 
-          headerName: ' ', 
-          width: 30,
-          sortable: false,
-          renderCell: (params) => {
-              return (
-                  <div className="friendslistImage">
-                      <img src={params.row.pfp} alt=""/>
-                  </div>
-              )
-          } 
-        },
-        {
-          field: 'username',
-          headerName: 'Username',
-          width: 150,
-        },
-        {
-          field: 'posts',
-          headerName: 'Posts',
-          width: 150,
-        },
-        {
-          field: 'addedDate',
-          headerName: 'Added on',
-          width: 200,
-        },
-      ];
-      
-      const rows = [
-        { id: 1, pfp: "", username: 'William Connor', posts: 12, addedDate: "July 2, 2020" },
-      ];
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const { user: currentUser } = useContext(AuthContext);
+
+  const [ friends, setFriends ] = useState([]); 
+  useEffect(() => {
+      const fetchFriends = async() => {
+          const response = await axios.get("/users/" + user._id + "/friends");
+          setFriends(response.data);
+      };      
+      fetchFriends(); 
+  }, [user, friends]);
+
+  const Button = ({type}) => {
+    return <button className={"friendslistTableButton " + type}>{type}</button>
+  }
 
     return (
-        <div className="friendslist">
-            <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection/>
-        </div>
-    )
+      <div className="friendslist">
+          <div className="friendslistContainer">
+              <span className="friendslistTitle">{"Friends: "}</span>
+              <table className="friendslistTable">
+                  <tr className="friendslistTableRow">
+                      <th className="friendslistTableHeader"> </th>
+                      <th className="friendslistTableHeader">Friends</th>
+                      <th className="friendslistTableHeader">Followers</th>
+                      <th className="friendslistTableHeader">Exchanges</th>
+                      <th className="friendslistTableHeader">Status</th>
+                      {
+                        user._id === currentUser._id && <th className="friendslistTableHeader"> </th>
+                      }
+                  </tr>
+                  {friends.map(friend => (
+                      <tr className="friendslistTableRow">
+                        <td className="friendslistTableUser">
+                          <img className="friendslistTableUserImage" src={
+                                                                            friend.profilePicture
+                                                                            ? PF + "/avatar/" + friend.profilePicture
+                                                                            : PF + "/avatar/default.jpg"
+                                                                         } alt=""/>
+                          <span className="friendslistTableUsername">{friend.username}</span>
+                        </td>
+                        <td className="friendslistTableDate">{friend.friends.length}</td>
+                        <td className="friendslistTableAmount">{friend.followers.length}</td>
+                        <td className="friendslistTableAmount">10</td>
+                        <td className="friendslistTableStatus">
+                          {
+                            currentUser.friends.includes(friend._id)
+                            ? <Button type="Friends"/>
+                            : <Button type="NotFriends"/>
+                          }
+                        </td>
+                          {
+                            user._id === currentUser._id && 
+                            <td className="friendsListTableStatus">
+                                <Button type="Remove"/>
+                            </td>
+                          }
+                      </tr>
+                  ))}
+              </table>
+          </div>
+      </div>
+  )
 }

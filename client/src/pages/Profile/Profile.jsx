@@ -15,7 +15,7 @@ export default function Profile() {
 
     const [ profileUser, setProfileUser ] = useState({});
     const [ posts, setPosts ] = useState([]);
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const username = useParams().username;
 
     useEffect(() => {

@@ -1,23 +1,79 @@
 .friendslist {
-    height: 600px;
     flex: 7;
-    margin-top: 20px;
-    margin-left: 10px;
-    padding: 15px;
+}
+
+.friendslistContainer {
+    height: 570px;
+    overflow-y: scroll;
+    padding: 30px;
+    margin: 20px;
     -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
     box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
 }
 
-.friendslistImage {
-    display: flex;
-    align-items: center;
+::-webkit-scrollbar {
+    width: 5px;
 }
 
-.friendslistImage img {
-    width: 32px;
-    height: 32px;
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(179, 179, 179);
+}
+
+.friendslistTitle {
+    font-size: 20px;
+    color: #1662c7;
+}
+
+.friendslistTable {
+    width: 100%;
+    border-spacing: 20px;
+}
+
+.friendslistTableHeader {
+    text-align: left;
+}
+
+.friendslistTableUser {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.friendslistTableUserImage {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+.friendslistTableDate, .friendslistTableAmount {
+    font-weight: 300;
+}
+
+.friendslistTableButton {
+    padding: 5px 7px;
+    border: none;
+    border-radius: 10px;
+}
+
+.friendslistTableButton.Friends {
+    background-color: #e5faf2;
+    color: #3bb077
+}
+
+.friendslistTableButton.NotFriends {
+    background-color: #fff0f1;
+    color: #979797;
+}
+
+.friendslistTableButton.Remove {
+    background-color: #ebf1fe;
+    color: #2a7ade;
 }
 
 @media only all and (max-width: 1500px) {
