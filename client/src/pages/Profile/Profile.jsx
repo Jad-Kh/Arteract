@@ -11,7 +11,7 @@ import { AuthContext } from "../../context/AuthContext"
 import { useParams } from "react-router";
 import "./Profile.css"
 
-export default function Profile() {
+export default function Profile({socket}) {
 
     const [ profileUser, setProfileUser ] = useState({});
     const [ posts, setPosts ] = useState([]);
@@ -36,7 +36,7 @@ export default function Profile() {
 
     return (
         <div>
-            <Navbar/>
+            <Navbar socket={socket}/>
             <div className="profileContainer">
                 <Sidebar/>
                 <div className="profileRight">

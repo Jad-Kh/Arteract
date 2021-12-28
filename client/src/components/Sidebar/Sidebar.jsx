@@ -45,10 +45,12 @@ export default function Sidebar() {
                         <span>Friends</span>
                     </li>
                     </Link>
+                    <Link to={"/chat"} style={{ textDecoration: "none" }}>
                     <li className="sidebarMenuItem">
                         <Chat htmlColor="#1877f2" className="sidebarIcon"/>
                         <span>Chat</span>
                     </li>
+                    </Link>
                     <li className="sidebarMenuItem">
                         <HelpOutline htmlColor="#1877f2" className="sidebarIcon"/>
                         <span>F.A.Q</span>

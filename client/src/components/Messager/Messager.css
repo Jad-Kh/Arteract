@@ -1,0 +1,36 @@
+.messagerContainer {
+    flex: 7;
+}
+
+.messagerInsider {
+    padding: 10px;
+    height: 100%;
+}
+
+.messagerInsiderTop {
+    overflow-y: scroll;
+    height: 75%;
+}
+
+.messagerInsiderBottom {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.messagerInput {
+    width: 80%;
+    height: 90px;
+    padding: 10px;
+}
+
+.messagerInputButton {
+    width: 70px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #1877f2;
+    color: white;
+}

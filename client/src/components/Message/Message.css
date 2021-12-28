@@ -1,0 +1,39 @@
+.messageContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.messageImage {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.messageInsider {
+    width: 50%;
+}
+
+.messageText {
+    padding: 10px;
+    border-radius: 28px;
+    background-color: #1877f2;
+    color: white;
+    width: 95%;
+}
+
+.messageTimer {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.messageContainer.own {
+    align-items: flex-end;
+}
+
+.messageContainer.own .messageText {
+    background-color: lightgrey;
+    color: black;
+}

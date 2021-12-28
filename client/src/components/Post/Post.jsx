@@ -5,10 +5,11 @@ import axios from "axios";
 import { format } from "timeago.js"
 import { AuthContext } from '../../context/AuthContext';
 
-export default function Post({post}) {
+export default function Post({post, socket}) {
 
     const { user: currentUser } = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const [ user, setUser ] = useState({});
 
     const [like, setLike] = useState(post.likes.length);
     const [dislike, setDislike] = useState(post.dislikes.length);
@@ -53,8 +54,16 @@ export default function Post({post}) {
         setIsFavorited(!isFavorited);
         setIsDisliked(isDisliked ? !isDisliked : isDisliked);
     }
-
-    const [ user, setUser ] = useState({});
+    /*
+    const handleNotification = (type) => {
+        type !== 0 &&
+        socket.emit("sendNotification", {
+          senderName: currentUser,
+          receiverName: user.username,
+          type,
+        });
+    };
+    */
     useEffect(() => {
         const fetchUser = async() => {
             const response = await axios.get(`/users/${post.userId}`);
@@ -94,15 +103,18 @@ export default function Post({post}) {
                  </div>
                  <div className="postCenter">
                      <span className="postText">{post.description}</span>
-                     <img className="postContentImg" src={PF + post.image} alt=""/>
+                     <img className="postContentImg" src={PF + "posts/" + post.image} alt=""/>
                  </div>
                  <div className="postBottom">
                      <div className="postBottomLeft">
-                        <ThumbUp htmlColor="lightgreen" className="postIcon" onClick={handleLike}/> 
+                        <ThumbUp htmlColor="lightgreen" className="postIcon"/> {/*onMouseEnter={() => handleNotification(1)
+                                                                             onClick={handleLike}*/}
                         <span className="postLikeCounter">{like}</span>    
-                        <ThumbDown htmlColor="lightgreen" className="postIcon" onClick={handleDislike}/>
+                        <ThumbDown htmlColor="lightgreen" className="postIcon"/> {/*onMouseEnter={() => handleNotification(2)} 
+                                                                               onClick={handleDislike}*/} 
                         <span className="postDislikeCounter">{dislike}</span> 
-                        <Favorite htmlColor="lightgreen" className="postIcon" onClick={handleFavorite}/>
+                        <Favorite htmlColor="lightgreen" className="postIcon"/> {/*onMouseEnter={() => handleNotification(3)} 
+                                                                              onClick={handleFavorite}*/}
                         <span className="postFavoriteCounter">{favorite}</span>  
                      </div>
                      <div className="postBottomRight">

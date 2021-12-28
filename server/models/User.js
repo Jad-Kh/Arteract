@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true,
         min: 2,
-        max: 20,
+        max: 30,
         unique: true
     },
     email: {
@@ -18,6 +18,18 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         min: 6
+    },
+    country: {
+        type: String,
+        default: "unspecified"
+    },
+    city: {
+        type: String,
+        default: "unspecified"
+    },
+    age: {
+        type: Number,
+        default: 0
     },
     profilePicture: {
         type: String,
@@ -43,7 +55,7 @@ const userSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
-    favorties: {
+    favorites: {
         type: Array,
         default: []
     },

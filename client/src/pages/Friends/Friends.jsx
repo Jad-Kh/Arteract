@@ -7,7 +7,7 @@ import { AuthContext } from "../../context/AuthContext"
 import { useParams } from "react-router";
 import "./Friends.css"
 
-export default function Friends() {
+export default function Friends({socket}) {
     
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [ profileUser, setProfileUser ] = useState({});
@@ -24,7 +24,7 @@ export default function Friends() {
 
     return (
         <div>
-            <Navbar/>
+            <Navbar socket={socket}/>
             <div className="friends">
                 <Sidebar/>
                 <Friendslist user={profileUser}/>

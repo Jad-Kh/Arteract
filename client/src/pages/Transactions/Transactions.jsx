@@ -5,10 +5,10 @@ import Chart from "../../components/Chart/Chart"
 import TransactionsWidgets from "../../components/TransactionsWidgets/TransactionsWidgets"
 import "./Transactions.css"
 
-export default function Transactions() {
+export default function Transactions({socket}) {
     return (
         <div>
-            <Navbar/>
+            <Navbar socket={socket}/>
             <div className="transactionsContainer">
                 <Sidebar/>
                 <div className="transactionsMiddle">

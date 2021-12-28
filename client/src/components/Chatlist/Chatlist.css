@@ -1,0 +1,14 @@
+.chatlistContainer {
+    flex: 3;
+}
+
+.chatlistInsider {
+    padding: 10px;
+}
+
+.chatlistInput {
+    width: 90%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid gray;
+}
