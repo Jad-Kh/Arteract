@@ -81,7 +81,7 @@ export default function Navbar() {
                                 user.profilePicture
                                 ? PF + "avatars/" + user.profilePicture
                                 : PF + "avatars/default.jpg"
-                            } alt="" className="navbarImg"/>
+                             } alt="" className="navbarImg"/>
                     <div className="navbarDropdownContent">
                         <p>Edit Profile</p>
                         <p>Settings</p>

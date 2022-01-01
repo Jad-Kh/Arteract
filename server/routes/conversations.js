@@ -8,7 +8,20 @@ router.post("/", async(request, response) => {
     });
     try {
         const conversation = await newConversation.save();
-        return response.status(500).json(conversation);
+        return response.status(200).json(conversation);
+    } catch(error) {
+        return response.status(500).json(error);
+    }
+});
+
+// ADD CONVERSATION WITH IDs
+router.post("/:firstUserId/:secondUserId", async(request, response) => {
+    const newConversation = new Conversation({
+        members: [request.params.firstUserId, request.params.secondUserId],
+    });
+    try {
+        const conversation = await newConversation.save();
+        return response.status(200).json(conversation);
     } catch(error) {
         return response.status(500).json(error);
     }
