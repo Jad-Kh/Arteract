@@ -4,11 +4,15 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 
-export default function Chatlist() {
+export default function Chatlist({currentChat, setCurrentChat}) {
 
     const [ conversations, setConversations ] = useState([]);
     const [ friends, setFriends ] = useState([]);
     const { user } = useContext(AuthContext);
+
+    const handleConversationClick = (conversation) => {
+        setCurrentChat(conversation);
+    }
 
     useEffect(() => {
         const fetchConversations = async() => {
@@ -43,7 +47,9 @@ export default function Chatlist() {
                 <input placeholder="Search for conversations" className="chatlistInput"/>
                 <div className="chatlistConversations">
                     {conversations.map((c) => (
-                        <Conversation conversation={c} currentUser={user}/>
+                        <div onClick={() => handleConversationClick(c)}>
+                            <Conversation conversation={c} currentUser={user}/>
+                        </div>
                     ))}
                 </div>
             </div>
