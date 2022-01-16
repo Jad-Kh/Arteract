@@ -14,6 +14,21 @@ export default function Chatlist({currentChat, setCurrentChat}) {
         setCurrentChat(conversation);
     }
 
+    const handleFriendClick = async(friend) => {
+        var found = false;
+        const response = await axios.get("/conversations/" + user._id);
+        response.data.map((c) => {
+            const friendId = c.members.find(member => member !== user._id);
+            friendId == friend._id ? found = true : console.log("fetching...")
+        })
+        found === false ? addConversation(friend) : found = false;
+    }
+
+    const addConversation = async(friend) => {
+        const response = await axios.post("/conversations/" + user._id + "/" + friend._id);
+        setConversations([ ...conversations, response.data])
+    }
+
     useEffect(() => {
         const fetchConversations = async() => {
             const response = await axios.get("/conversations/" + user._id);
@@ -33,7 +48,7 @@ export default function Chatlist({currentChat, setCurrentChat}) {
                 <input placeholder="Search for friends" className="chatlistInput"/>
                 <div className="chatlistFriends">
                     {friends.map(friend => (       
-                        <li className="chatlistFriend">
+                        <li className="chatlistFriend" onClick={() => handleFriendClick(friend)}>
                             <div className="chatlistFriendImgContainer">
                                 <img className="chatlistFriendImg" src={"assets/avatar/" + friend.profilePicture} alt=""/>
                                 <span className="chatlistFriendOnlineBadge"></span>

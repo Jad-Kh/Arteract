@@ -10,11 +10,15 @@ export default function Activity() {
 
     const [ posts, setPosts ] = useState([]);
     const { user } = useContext(AuthContext);
-    const [socket, setSocket] = useState(null);
+    const socket = useRef();
 
     useEffect(() => {
-        setSocket(io("ws://localhost:5000"));
+        socket.current = io("ws://localhost:8900");
     });
+
+    useEffect(() => {
+        socket.current?.emit("addUser", user._id);
+    }, [socket, user]);
 
     useEffect(() => {
         const fetchPosts = async() => {

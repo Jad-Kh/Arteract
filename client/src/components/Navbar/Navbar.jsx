@@ -1,7 +1,8 @@
 import "./Navbar.css"
-import { Search, Person, Chat, Notifications }  from "@material-ui/icons"
+import { Search, Person, Chat, Notifications, ContactSupportOutlined }  from "@material-ui/icons"
 import { useContext, useEffect, useState, useRef } from 'react'
 import { AuthContext } from "../../context/AuthContext"
+import axios from "axios";
 import { io } from "socket.io-client";
 
 export default function Navbar() {
@@ -9,43 +10,52 @@ export default function Navbar() {
     const { user } = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [notifications, setNotifications] = useState([]);
-    const [socket, setSocket] = useState(null);
+    const [newNotification, setNewNotification] = useState();
+    const socket = useRef();
     const [open, setOpen] = useState(false);
-    /*
-    useEffect(() => {
-        setSocket(io("ws://localhost:5000"));
-    });
+    const [action, setAction] = useState("");
+    const [notificationSender, setNotificationSender] = useState();
 
     useEffect(() => {
-        socket?.current.emit("addUser", user._id);
-    }, [user]);
+        socket.current = io("ws://localhost:8900");
+    }, []);
+
+    useEffect(() => {
+        socket.current?.on("getNotification", (notification) => {
+            setNotifications((prev) => [...prev, notification]);
+        });
+    }, [socket]);
+
+    useEffect(() => {
+        socket.current?.emit("addUser", user._id);
+    }, [socket, user]);
     
-    useEffect(() => {
-        socket?.on("getNotification", data => {
-            setNotifications((prev) => [...prev, data]);
-        })
-    }, [socket]) 
+    const fetchSender = async(senderId) => {
+        const sender = await axios("/users/" + senderId);
+        console.log(sender.data.username);
+        return sender.data;
+    }
 
-    const displayNotification = ({senderName, type}) => {
-        let action;
+    const fetchAction = (notification) => {
+        
+        let action = "";
 
-               if(type==1) {
-            action = "liked"
-        } else if(type==2) {
-            action = "disliked"
-        } else if(type==3) {
-            action = "favorited"
+               if(notification.type === 1) {
+            action = "liked";
+        } else if(notification.type === 2) {
+            action = "disliked";
+        } else if(notification.type === 3) {
+            action = "favorite";
         }
-        return (
-            <span className="navbarNotification">{`${senderName} ${action} your post`}</span>
-        )
+
+        return action;
     }
 
     const handleRead = () => {
         setNotifications([]);
         setOpen(false);
     };
-    */
+    
     return (
         <div className="navbarContainer">
             <div className="navbarLeft">
@@ -71,9 +81,9 @@ export default function Navbar() {
                         <Chat/>
                         <span className="navbarIconBadge">1</span>
                     </div>
-                    <div className="navbarIconItem"> {/*onClick={() => setOpen(!open)}*/}
+                    <div className="navbarIconItem" onClick={() => setOpen(!open)}>
                         <Notifications/>
-                        <span className="navbarIconBadge">{/*notifications.length*/}1</span>
+                        <span className="navbarIconBadge">{notifications.length}</span>
                     </div>
                 </div>
                 <div className="navbarDropdown">
@@ -89,19 +99,16 @@ export default function Navbar() {
                     </div>
                 </div>
             </div>
-            {/*open && (
+            {open && (
             <div className="navbarNotifications">
-                    <span className="navbarNotification">This is a notifications test</span>
-                    <span className="navbarNotification">This is a notifications test</span>
-                    <span className="navbarNotification">This is a notifications test</span>
-                    <span className="navbarNotification">This is a notifications test</span>
-                    <span className="navbarNotification">This is a notifications test</span>
-                    {notifications.map((n) => displayNotification(n))}
+                    {notifications.map((n) =>  
+                        <span className="navbarNotification">{`${n.senderId} ${fetchAction(n)} your post`}</span>)
+                    }
                     <button className="navbarButton" onClick={handleRead}>
                         Mark as read
                     </button>
             </div>
-            )*/}
+            )}
         </div>
     );
 }

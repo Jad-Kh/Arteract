@@ -19,6 +19,18 @@ export default function Post({post, socket}) {
     const [isDisliked, setIsDisliked] = useState(false);
     const [isFavorited, setIsFavorited] = useState(false);
 
+    const handleNotification = (type) => {
+
+        const receiverId = user._id;
+
+        socket.current?.emit("sendNotification", {
+            senderId: currentUser.username,
+            receiverId,
+            type,
+        });
+        console.log("Notification sent");
+    };
+
     const handleLike = () => {
         try {
             axios.put("/posts/" + post._id + "/like", { userId: currentUser._id });
@@ -26,9 +38,8 @@ export default function Post({post, socket}) {
             console.log(error);
         }
         setLike(isLiked ? like-1 : like+1);
-        setDislike(isDisliked ? dislike-1 : dislike);
         setIsLiked(!isLiked);
-        setIsDisliked(isDisliked ? !isDisliked : isDisliked);
+        handleNotification(1);
     }
 
     const handleDislike = () => {
@@ -38,9 +49,8 @@ export default function Post({post, socket}) {
             console.log(error);
         }
         setDislike(isDisliked ? dislike-1 : dislike+1);
-        setLike(isLiked ? like-1 : like);
         setIsDisliked(!isDisliked);
-        setIsLiked(isLiked ? !isLiked : isLiked);
+        handleNotification(2);
     }
 
     const handleFavorite = () => {
@@ -50,30 +60,29 @@ export default function Post({post, socket}) {
             console.log(error);
         }
         setFavorite(isFavorited ? favorite-1 : favorite+1);
-        setDislike(isDisliked ? dislike-1 : dislike);
         setIsFavorited(!isFavorited);
-        setIsDisliked(isDisliked ? !isDisliked : isDisliked);
+        handleNotification(3);
     }
-    /*
-    const handleNotification = (type) => {
-        type !== 0 &&
-        socket.emit("sendNotification", {
-          senderName: currentUser,
-          receiverName: user.username,
-          type,
-        });
-    };
-    */
+    
+    useEffect(() => {
+        setIsLiked(post.likes.includes(currentUser._id));
+    }, [currentUser._id, post.likes]);
+
+    useEffect(() => {
+        setIsDisliked(post.dislikes.includes(currentUser._id));
+    }, [currentUser._id, post.dislikes]);
+
+    useEffect(() => {
+        setIsFavorited(post.favorites.includes(currentUser._id));
+    }, [currentUser._id, post.favorites]);
+
     useEffect(() => {
         const fetchUser = async() => {
             const response = await axios.get(`/users/${post.userId}`);
             setUser(response.data);
         }
-        setIsLiked(post.likes.includes(currentUser._id));
-        setIsDisliked(post.likes.includes(currentUser._id));
-        setIsFavorited(post.likes.includes(currentUser._id));
         fetchUser();
-    }, [user, post.userId, currentUser._id])
+    }, [post.userId]);
 
      return (
          <div className="post">
@@ -107,14 +116,14 @@ export default function Post({post, socket}) {
                  </div>
                  <div className="postBottom">
                      <div className="postBottomLeft">
-                        <ThumbUp htmlColor="lightgreen" className="postIcon"/> {/*onMouseEnter={() => handleNotification(1)
-                                                                             onClick={handleLike}*/}
+                        <ThumbUp htmlColor="lightgreen" className="postIcon" 
+                        onClick={handleLike}/>
                         <span className="postLikeCounter">{like}</span>    
-                        <ThumbDown htmlColor="lightgreen" className="postIcon"/> {/*onMouseEnter={() => handleNotification(2)} 
-                                                                               onClick={handleDislike}*/} 
+                        <ThumbDown htmlColor="lightgreen" className="postIcon"
+                        onClick={handleDislike}/>
                         <span className="postDislikeCounter">{dislike}</span> 
-                        <Favorite htmlColor="lightgreen" className="postIcon"/> {/*onMouseEnter={() => handleNotification(3)} 
-                                                                              onClick={handleFavorite}*/}
+                        <Favorite htmlColor="lightgreen" className="postIcon"
+                        onClick={handleFavorite}/>
                         <span className="postFavoriteCounter">{favorite}</span>  
                      </div>
                      <div className="postBottomRight">

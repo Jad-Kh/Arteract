@@ -31,18 +31,11 @@ io.on("connection", (socket) => {
             text,
         });
     });
-    socket.on("sendNotification", ({senderName, receiverName, type}) => {
-        const receiver = getUser(receiverName);
+    socket.on("sendNotification", ({senderId, receiverId, type}) => {
+        const receiver = getUser(receiverId);
         io.to(receiver.socketId).emit("getNotification", {
-            senderName,
+            senderId,
             type,
-        });
-    });
-    socket.on("sendText", ({senderName, receiverName, text}) => {
-        const receiver = getUser(receiverName);
-        io.to(receiver.socketId).emit("getText", {
-          senderName,
-          text,
         });
     });
     socket.on("disconnect", () => {
