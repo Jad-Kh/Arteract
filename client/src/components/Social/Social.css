@@ -62,6 +62,17 @@
     border: 2px solid white;
 }
 
+.socialFriendOfflineBadge {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background-color: gray;
+    position: absolute;
+    top: -2px;
+    right: 0;
+    border: 2px solid white;
+}
+
 .socialFriendOnlineUsername {
     font-weight: 500;
 }
