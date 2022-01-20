@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { io } from "socket.io-client";
 
-export default function Messager({currentChat, setCurrentChat, messages, setMessages}) {
+export default function Messager({currentChat, messages, setMessages, setOnlineUsers}) {
 
     const [ newMessage, setNewMessage ] = useState("");
     const [ arrivalMessage, setArrivalMessage ] = useState();
@@ -54,6 +54,9 @@ export default function Messager({currentChat, setCurrentChat, messages, setMess
     useEffect(() => {
         socket.current.emit("addUser", user._id);
         socket.current.on("getUsers", users => {
+            setOnlineUsers(
+                user.friends.filter((f) => users.some((u) => u.userId === f))
+            );
         });
     }, [user]);
 

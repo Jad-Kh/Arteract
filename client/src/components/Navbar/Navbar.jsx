@@ -1,8 +1,7 @@
 import "./Navbar.css"
-import { Search, Person, Chat, Notifications, ContactSupportOutlined }  from "@material-ui/icons"
+import { Search, Person, Chat, Notifications }  from "@material-ui/icons"
 import { useContext, useEffect, useState, useRef } from 'react'
 import { AuthContext } from "../../context/AuthContext"
-import axios from "axios";
 import { io } from "socket.io-client";
 
 export default function Navbar() {
@@ -10,11 +9,8 @@ export default function Navbar() {
     const { user } = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [notifications, setNotifications] = useState([]);
-    const [newNotification, setNewNotification] = useState();
     const socket = useRef();
     const [open, setOpen] = useState(false);
-    const [action, setAction] = useState("");
-    const [notificationSender, setNotificationSender] = useState();
 
     useEffect(() => {
         socket.current = io("ws://localhost:8900");
@@ -29,12 +25,6 @@ export default function Navbar() {
     useEffect(() => {
         socket.current?.emit("addUser", user._id);
     }, [socket, user]);
-    
-    const fetchSender = async(senderId) => {
-        const sender = await axios("/users/" + senderId);
-        console.log(sender.data.username);
-        return sender.data;
-    }
 
     const fetchAction = (notification) => {
         

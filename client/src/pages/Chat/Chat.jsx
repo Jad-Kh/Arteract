@@ -11,7 +11,7 @@ export default function Chat() {
 
     const [ currentChat, setCurrentChat ] = useState();
     const [ messages, setMessages ] = useState([]);
-    const { user: currentUser } = useContext(AuthContext);
+    const [ onlineUsers, setOnlineUsers ] = useState([]);
 
     useEffect(() => {
         const fetchMessages = async() => {
@@ -26,8 +26,8 @@ export default function Chat() {
             <Navbar/>
             <div className="chatContainer">
                 <Sidebar/>
-                <Messager currentChat={currentChat} setCurrentChat={setCurrentChat} messages={messages} setMessages={setMessages}/>
-                <Chatlist currentChat={currentChat} setCurrentChat={setCurrentChat}/>
+                <Messager currentChat={currentChat} messages={messages} setMessages={setMessages} setOnlineUsers={setOnlineUsers}/>
+                <Chatlist setCurrentChat={setCurrentChat} onlineUsers={onlineUsers}/>
             </div>
         </div>
     )

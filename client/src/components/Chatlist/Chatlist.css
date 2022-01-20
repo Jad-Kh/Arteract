@@ -52,6 +52,17 @@
     border: 2px solid white;
 }
 
+.chatlistFriendOfflineBadge {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background-color: gray;
+    position: absolute;
+    top: -2px;
+    right: 0;
+    border: 2px solid white;
+}
+
 .chatlistFriendOnlineUsername {
     font-weight: 500;
 }

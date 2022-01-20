@@ -4,10 +4,12 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 
-export default function Chatlist({currentChat, setCurrentChat}) {
+export default function Chatlist({setCurrentChat, onlineUsers}) {
 
     const [ conversations, setConversations ] = useState([]);
     const [ friends, setFriends ] = useState([]);
+    const [ onlineList, setOnlineList ] = useState([]);
+    const [ offlineList, setOfflineList ] = useState([]);
     const { user } = useContext(AuthContext);
 
     const handleConversationClick = (conversation) => {
@@ -42,16 +44,30 @@ export default function Chatlist({currentChat, setCurrentChat}) {
         fetchConversations();
     }, [user._id]);
 
+    useEffect(() => {
+        setOnlineList(friends.filter((f) => onlineUsers.some((f2) => f2 === f._id)));
+        setOfflineList(friends.filter((f) => !onlineUsers.some((f2) => f2 === f._id)));
+    }, [friends, onlineUsers]);
+
     return (
         <div className="chatlistContainer">
             <div className="chatlistInsiderFriends">
                 <input placeholder="Search for friends" className="chatlistInput"/>
                 <div className="chatlistFriends">
-                    {friends.map(friend => (       
+                    {onlineList.map(friend => (       
                         <li className="chatlistFriend" onClick={() => handleFriendClick(friend)}>
                             <div className="chatlistFriendImgContainer">
                                 <img className="chatlistFriendImg" src={"assets/avatar/" + friend.profilePicture} alt=""/>
-                                <span className="chatlistFriendOnlineBadge"></span>
+                                <span className="chatlistFriendOnlineBadge"></span> 
+                            </div>
+                            <span className="chatlistFriendOnlineUsername">{friend.username}</span>
+                        </li>
+                    ))}
+                    {offlineList.map(friend => (       
+                        <li className="chatlistFriend" onClick={() => handleFriendClick(friend)}>
+                            <div className="chatlistFriendImgContainer">
+                                <img className="chatlistFriendImg" src={"assets/avatar/" + friend.profilePicture} alt=""/>
+                                <span className="chatlistFriendOfflineBadge"></span> 
                             </div>
                             <span className="chatlistFriendOnlineUsername">{friend.username}</span>
                         </li>
