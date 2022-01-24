@@ -3,15 +3,46 @@ import Sidebar from "../../components/Sidebar/Sidebar"
 import PostComments from "../../components/PostComments/PostComments"
 import Social from "../../components/Social/Social"
 import "./CommentSection.css"
+import { useParams } from "react-router";
+import { useState, useEffect, useContext, useRef } from "react"
+import { AuthContext } from "../../context/AuthContext"
+import axios from "axios"
+import { io } from "socket.io-client";
 
 export default function CommentSection() {
+
+    const postId = (useParams().postId).toString();
+    const socket = useRef();
+    const [ focusPost, setFocusPost ] = useState();
+    const [ comments, setComments ] = useState([]);
+    const { user } = useContext(AuthContext);
+
+    console.log(postId);
+
+    useEffect(() => {
+        console.log("Run Effect");
+        const fetchPost = async() => {
+            const response = await axios.get("/posts/" + postId);
+            setFocusPost(response.data);
+            setComments(response.data.comments);
+        }
+        fetchPost();
+    }, [setFocusPost, postId])
+
+    console.log(focusPost);
+
+    useEffect(() => {
+        socket.current = io("ws://localhost:8900");
+    }, []);
+
     return (
         <div>
             <Navbar/>
             <div className="commentSectionContainer">
                 <Sidebar/>
-                <PostComments/>
-                <Social/>
+                <div className="commentSectionMiddle">
+                    <PostComments focusPost={focusPost} comments={comments} socket={socket}/>
+                </div>
             </div>
         </div>
     )

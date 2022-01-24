@@ -24,7 +24,7 @@ export default function Friends({socket}) {
 
     return (
         <div>
-            <Navbar socket={socket}/>
+            <Navbar/>
             <div className="friends">
                 <Sidebar/>
                 <Friendslist user={profileUser}/>

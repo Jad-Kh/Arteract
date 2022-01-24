@@ -109,11 +109,23 @@ router.put("/:id/favorite", async (request, response) => {
     }
 });
 
+// COMMENT ON POST
+router.put("/:id/comment", async (request, response) => {
+    try {
+        const post = await Post.findById(request.params.id);
+        const comment = { userId: request.body.userId, text: request.body.text, timestamp: request.body.timestamp }
+        await post.updateOne({ $push: { comments: comment }});
+        return response.status(200).json(comment);
+    } catch(error) {
+        return response.status(500).json(error);
+    }
+});
+
 // GET POST 
 router.get("/:id", async(request, response) => {
     try {
         const post = await Post.findById(request.params.id);
-        response.status(200).json(post);
+        return response.status(200).json(post);
     } catch(error) {
         return response.status(500).json(error);
     }
@@ -128,7 +140,6 @@ router.get("/profile/:id", async(request, response) => {
         return response.status(500).json(error);
     }
 });
-
 
 // GET ACTIVITY POST
 router.get("/activity/:userId", async(request, response) => {

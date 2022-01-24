@@ -1,19 +1,20 @@
 import Post from "../../components/Post/Post"
 import Comment from "../../components/Comment/Comment"
 import WriteComment from "../../components/WriteComment/WriteComment";
+import { useState, useEffect, useContext } from "react"
+import { AuthContext } from "../../context/AuthContext"
+import axios from "axios"
 import "./PostComments.css"
-import { Posts, Comments } from "../../trydata"
 
-export default function PostComments() {
+export default function PostComments({focusPost, comments, socket}) {
+
     return (
         <div className="postComments">
             <div className="postCommentsContainer">
-                { Posts.filter((p) => p.id === 23364).map(p => (
-                    <Post key={p.id} post={p} />
-                ))}
-                <WriteComment />
-                { Comments.filter((c) => c.postId === 23364).map(c => (
-                    <Comment key={c.id} comment={c} />
+                {<Post post={focusPost} socket={socket}/>}
+                <WriteComment post={focusPost}/>
+                { comments.map(c => (
+                    <Comment key={c?.id} comment={c} />
                 ))}
             </div>
         </div>

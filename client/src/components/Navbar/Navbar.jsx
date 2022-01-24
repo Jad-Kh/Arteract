@@ -23,7 +23,7 @@ export default function Navbar() {
     }, [socket]);
 
     useEffect(() => {
-        socket.current?.emit("addUser", user._id);
+        socket.current?.emit("addUser", user?._id);
     }, [socket, user]);
 
     const fetchAction = (notification) => {
@@ -78,8 +78,8 @@ export default function Navbar() {
                 </div>
                 <div className="navbarDropdown">
                     <img src={
-                                user.profilePicture
-                                ? PF + "avatars/" + user.profilePicture
+                                user?.profilePicture
+                                ? PF + "avatars/" + user?.profilePicture
                                 : PF + "avatars/default.jpg"
                              } alt="" className="navbarImg"/>
                     <div className="navbarDropdownContent">

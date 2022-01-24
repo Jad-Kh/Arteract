@@ -28,7 +28,7 @@ function App() {
         <Route path="/transactions">
           <Transactions/>
         </Route>
-        <Route path="/comments">
+        <Route path="/postInfo/:postId">
           <CommentSection/>
         </Route>
         <Route path="/friends/:username">

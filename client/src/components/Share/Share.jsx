@@ -38,7 +38,7 @@ export default function Share() {
     const submitHandler = async(e) => {
         e.preventDefault()
         const newPost = {
-            userId: user._id,
+            userId: user?._id,
             description: inputRef.current.value
         }
         if(file) {
@@ -64,12 +64,12 @@ export default function Share() {
     const [ user, setUser ] = useState({});
     useEffect(() => {
         const fetchUser = async() => {
-            const response = await axios.get("/users/" + currentUser._id);
+            const response = await axios.get("/users/" + currentUser?._id);
             setUser(response.data);
         }
         fetchUser();
         inputRef.current.selectionEnd = cursorPosition;
-    }, [cursorPosition], currentUser._id)
+    }, [cursorPosition], currentUser?._id)
 
     let emojiClass = hideState ? "emojiPickerContainerHidden" : "emojiPickerContainer" ;
 
@@ -78,11 +78,11 @@ export default function Share() {
             <div className="shareContainer">
                 <div className="shareTop">
                     <img className="shareImg" src={
-                                                    user.profilePicture
-                                                    ? PF + "avatars/" + user.profilePicture
+                                                    user?.profilePicture
+                                                    ? PF + "avatars/" + user?.profilePicture
                                                     : PF + "avatars/default.jpg"
                                                   } alt=""/>
-                    <input className="shareInput" placeholder={ "What's on your mind " + user.username + "?" }
+                    <input className="shareInput" placeholder={ "What's on your mind " + user?.username + "?" }
                      value={message} onChange={handleChange} ref={inputRef}/>
                 </div>
                 <hr className="shareLine"></hr>

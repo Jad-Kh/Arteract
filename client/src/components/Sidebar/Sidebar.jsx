@@ -19,7 +19,7 @@ export default function Sidebar() {
                         <span>Activity</span>
                     </li>
                     </Link>
-                    <Link to={`/profile/${user.username}`} style={{ textDecoration: "none" }}>
+                    <Link to={`/profile/${user?.username}`} style={{ textDecoration: "none" }}>
                     <li className="sidebarMenuItem">
                         <Person htmlColor="#1877f2" className="sidebarIcon"/>
                         <span>Profile</span>
@@ -39,7 +39,7 @@ export default function Sidebar() {
                         <span>Transactions</span>
                     </li>
                     </Link>
-                    <Link to={`/friends/${user.username}`} style={{ textDecoration: "none" }}>
+                    <Link to={`/friends/${user?.username}`} style={{ textDecoration: "none" }}>
                     <li className="sidebarMenuItem">
                         <Group htmlColor="#1877f2" className="sidebarIcon"/>
                         <span>Friends</span>

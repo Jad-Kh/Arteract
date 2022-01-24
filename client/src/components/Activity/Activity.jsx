@@ -36,7 +36,7 @@ export default function Activity() {
             <div className="activityContainer">
                 <Share/>
                 {posts.map(p => (
-                    <Post key={p._id} post={p} socket={socket} />
+                    <Post key={p._id} post={p} socket={socket}/>
                 ))}
             </div>
         </div>

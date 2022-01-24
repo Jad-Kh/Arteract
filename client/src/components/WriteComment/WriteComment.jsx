@@ -1,10 +1,14 @@
-import { createRef, useEffect, useState } from 'react';
+import { createRef, useEffect, useState, useContext } from 'react';
+import { AuthContext } from "../../context/AuthContext";
 import "./WriteComment.css"
 import { Label, EmojiEmotions } from "@material-ui/icons"
 import Picker from "emoji-picker-react"
-import { Users } from "../../trydata"
+import axios from "axios"
 
-export default function WriteComment() {
+export default function WriteComment({post}) {
+
+    const { user: currentUser } = useContext(AuthContext);
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
     const inputRef = createRef();
     const [message, setMessage] = useState('');
@@ -30,6 +34,21 @@ export default function WriteComment() {
         setMessage(e.target.value);
     }
     
+    const submitHandler = async(e) => {
+        e.preventDefault()
+        const newComment = {
+            userId: currentUser._id,
+            text: inputRef.current.value,
+            timestamp: Date.now()
+        }
+        try {
+            await axios.put("/posts/" + post._id + "/comment", newComment);
+            window.location.reload();
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         inputRef.current.selectionEnd = cursorPosition;
     }, [cursorPosition]);
@@ -40,12 +59,16 @@ export default function WriteComment() {
         <div className="writeComment"> 
             <div className="writeCommentContainer">
                 <div className="writeCommentTop">
-                    <img className="writeCommentImg" src={ Users.filter((u) => u.id === 1992)[0].pfp } alt="" />
-                    <input className="writeCommentInput" placeholder={ "What's on your mind " + Users.filter((u) => u.id === 1992)[0].username + "?" }
+                    <img className="writeCommentImg" src={
+                                                            currentUser?.profilePicture
+                                                            ? PF + "avatars/" + currentUser?.profilePicture
+                                                            : PF + "avatars/default.jpg"
+                                                        } alt="" />
+                    <input className="writeCommentInput" placeholder={ "What's on your mind " + currentUser?.username + "?" }
                      value={message} onChange={handleChange} ref={inputRef}/>
                 </div>
                 <hr className="writeCommentLine"></hr>
-                <div className="writeCommentBottom">
+                <form className="writeCommentBottom" onSubmit={submitHandler}>
                     <div className="writeCommentOptions">
                         <div className="writeCommentOptionsItem">
                             <Label htmlColor="lightgreen" className="writeCommentIcon"/>
@@ -57,7 +80,7 @@ export default function WriteComment() {
                         </div>
                     </div>
                     <button className="writeCommentButton">Post</button>
-                </div>
+                </form>
                 { 
                 <div className={emojiClass}>
                     <div className={`emoji-list ${!showEmojis && 'hidden'}`}>
