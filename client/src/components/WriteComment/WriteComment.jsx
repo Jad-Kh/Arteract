@@ -5,7 +5,7 @@ import { Label, EmojiEmotions } from "@material-ui/icons"
 import Picker from "emoji-picker-react"
 import axios from "axios"
 
-export default function WriteComment({post}) {
+export default function WriteComment({post, socket}) {
 
     const { user: currentUser } = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -34,6 +34,18 @@ export default function WriteComment({post}) {
         setMessage(e.target.value);
     }
     
+    const handleNotification = (type) => {
+
+        const receiverId = post?.userId;
+
+        socket.current?.emit("sendNotification", {
+            senderId: currentUser?.username,
+            receiverId,
+            type,
+        });
+
+    };
+
     const submitHandler = async(e) => {
         e.preventDefault()
         const newComment = {
@@ -43,7 +55,7 @@ export default function WriteComment({post}) {
         }
         try {
             await axios.put("/posts/" + post._id + "/comment", newComment);
-            window.location.reload();
+            handleNotification(4);
         } catch(error) {
             console.log(error);
         }

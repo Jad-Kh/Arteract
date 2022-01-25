@@ -35,7 +35,9 @@ export default function Navbar() {
         } else if(notification.type === 2) {
             action = "disliked";
         } else if(notification.type === 3) {
-            action = "favorite";
+            action = "favorited";
+        } else if(notification.type === 4) {
+            action = "commented on";
         }
 
         return action;

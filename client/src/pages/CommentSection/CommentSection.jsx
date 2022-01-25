@@ -15,21 +15,15 @@ export default function CommentSection() {
     const socket = useRef();
     const [ focusPost, setFocusPost ] = useState();
     const [ comments, setComments ] = useState([]);
-    const { user } = useContext(AuthContext);
-
-    console.log(postId);
 
     useEffect(() => {
-        console.log("Run Effect");
         const fetchPost = async() => {
             const response = await axios.get("/posts/" + postId);
             setFocusPost(response.data);
             setComments(response.data.comments);
         }
         fetchPost();
-    }, [setFocusPost, postId])
-
-    console.log(focusPost);
+    }, [setFocusPost, postId, comments])
 
     useEffect(() => {
         socket.current = io("ws://localhost:8900");
