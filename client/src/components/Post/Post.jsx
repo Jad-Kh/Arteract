@@ -65,6 +65,14 @@ export default function Post({post, socket}) {
         handleNotification(3);
     }
     
+    const handleDelete = () => {
+        try {
+            axios.delete("/posts/" + post?._id, { data: { userId: post?.userId }});
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         setIsLiked(post?.likes.includes(currentUser?._id));
     }, [currentUser?._id, post?.likes]);
@@ -104,8 +112,8 @@ export default function Post({post, socket}) {
                          <MoreVert htmlColor="lightgreen"/>
                          { user._id === currentUser?._id &&  
                             <div className="postDropdownContent">
-                                <p>Edit</p>
-                                <p>Delete</p>
+                                <div className="postDropdownButton">Edit</div>
+                                <div className="postDropdownButton" onClick={handleDelete}>Delete</div>
                             </div>
                          }
                          </div>

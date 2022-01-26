@@ -29,7 +29,7 @@ export default function Activity() {
             setPosts(response.data);
         }
         fetchPosts();
-    },[user._id])
+    }, [user._id, posts])
 
     return (
         <div className="activity">
