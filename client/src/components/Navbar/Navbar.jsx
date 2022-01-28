@@ -2,6 +2,7 @@ import "./Navbar.css"
 import { Search, Person, Chat, Notifications }  from "@material-ui/icons"
 import { useContext, useEffect, useState, useRef } from 'react'
 import { AuthContext } from "../../context/AuthContext"
+import axios from "axios"
 import { io } from "socket.io-client";
 
 export default function Navbar() {
@@ -9,8 +10,10 @@ export default function Navbar() {
     const { user } = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [notifications, setNotifications] = useState([]);
+    const [requestNotifications, setRequestNotifications] = useState([]);
     const socket = useRef();
     const [open, setOpen] = useState(false);
+    const [requestOpen, setRequestOpen] = useState(false);
 
     useEffect(() => {
         socket.current = io("ws://localhost:8900");
@@ -26,6 +29,14 @@ export default function Navbar() {
         socket.current?.emit("addUser", user?._id);
     }, [socket, user]);
 
+    useEffect(() => {
+        const fetchFriendRequests = async() => {
+            const response = await axios.get("/users/" + user?._id + "/requests");
+            setRequestNotifications(response.data);
+        }
+        fetchFriendRequests();
+    }, [user, user?.requests, requestNotifications]);
+
     const fetchAction = (notification) => {
         
         let action = "";
@@ -38,6 +49,8 @@ export default function Navbar() {
             action = "favorited";
         } else if(notification.type === 4) {
             action = "commented on";
+        } else if(notification.type === 5) {
+            action = "followed";
         }
 
         return action;
@@ -48,6 +61,29 @@ export default function Navbar() {
         setOpen(false);
     };
     
+    const handleFriendsAccept = async(friendRequest) => {
+        try {
+            await axios.put("/users/" + user?._id + "/acceptfriendrequest", { userId: friendRequest._id });
+            handleFriendsNotifications(friendRequest);
+        } catch(error) {
+            console.log(error)
+        }
+    };
+
+    const handleFriendsDeny = async(friendRequest) => {
+        try {
+            await axios.put("/users/" + user?._id + "/denyfriendrequest", { userId: friendRequest._id });
+            handleFriendsNotifications(friendRequest);
+        } catch(error) {
+            console.log(error)
+        }        
+    };
+
+    const handleFriendsNotifications = (friendRequest) => {
+        const updatedRequestNotifications = requestNotifications.filter((rN) => rN._id !== friendRequest._id)
+        setRequestNotifications(updatedRequestNotifications)
+    }
+
     return (
         <div className="navbarContainer">
             <div className="navbarLeft">
@@ -65,7 +101,7 @@ export default function Navbar() {
                     <span className="navbarLink">Logout</span>
                 </div>
                 <div className="navbarIcons">
-                    <div className="navbarIconItem">
+                    <div className="navbarIconItem" onClick={() => setRequestOpen(!requestOpen)}>
                         <Person/>
                         <span className="navbarIconBadge">1</span>
                     </div>
@@ -99,6 +135,21 @@ export default function Navbar() {
                     <button className="navbarButton" onClick={handleRead}>
                         Mark as read
                     </button>
+            </div>
+            )}
+            {requestOpen && (
+            <div className="navbarNotifications">
+                    {requestNotifications.map((rN) =>  
+                    <>
+                        <span className="navbarNotification">{`You have a request from ${rN.username}`}</span>
+                        <button className="navbarFriendButton" onClick={() => {handleFriendsAccept(rN)}}>
+                            Accept
+                        </button>
+                        <button className="navbarFriendButton" onClick={() => {handleFriendsDeny(rN)}}>
+                            Deny
+                        </button>
+                    </>)
+                    }
             </div>
             )}
         </div>

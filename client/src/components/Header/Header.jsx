@@ -1,7 +1,8 @@
 import axios from "axios"
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect, useContext, useRef } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import "./Header.css"
+import { io } from "socket.io-client";
 
 export default function Header({user}) {
 
@@ -9,6 +10,23 @@ export default function Header({user}) {
     const { user: currentUser } = useContext(AuthContext);
     const [ friended , setFriended ] = useState(false);
     const [ followed , setFollowed ] = useState(false);
+    const socket = useRef();
+
+    useEffect(() => {
+        socket.current = io("ws://localhost:8900");
+    }, []);
+
+    const handleNotification = (type) => {
+
+        const receiverId = user._id;
+
+        socket.current?.emit("sendNotification", {
+            senderId: currentUser?.username,
+            receiverId,
+            type,
+        });
+
+    };
 
     const handleFriend = async() => {
         try {
@@ -32,6 +50,7 @@ export default function Header({user}) {
         } catch(error) {
             console.log(error);
         }
+        if(!followed) { handleNotification(6); }
         setFollowed(!followed);
     }
 

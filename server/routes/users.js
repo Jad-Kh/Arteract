@@ -246,4 +246,20 @@ router.get("/:id/friends", async(request, response) => {
     }
 });
 
+// GET USER REQUESTS 
+router.get("/:id/requests", async(request, response) => {
+    try {
+        const user = await User.findById(request.params.id); 
+        const requesters = await Promise.all(
+            user.requests.map( async(requesterId) => {
+                const requester = await User.findById(requesterId);
+                return requester;
+            }),
+        )
+        return response.status(200).json(requesters);
+    } catch(error) {
+        return response.status(500).json(error);
+    }
+});
+
 module.exports = router;

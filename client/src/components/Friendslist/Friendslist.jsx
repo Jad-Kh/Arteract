@@ -10,6 +10,7 @@ export default function Friendslist({user}) {
   const { user: currentUser } = useContext(AuthContext);
   const [ selectedFriend, setSelectedFriend ] = useState(0);
   const [ friends, setFriends ] = useState([]); 
+  
   useEffect(() => {
       const fetchFriends = async() => {
           const response = await axios.get("/users/" + user._id + "/friends");
