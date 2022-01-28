@@ -39,7 +39,7 @@ export default function Header({user}) {
             console.log(error)
         }
     }
-
+ 
     const handleFollow = async() => {
         try {
             if(followed) {
@@ -50,14 +50,14 @@ export default function Header({user}) {
         } catch(error) {
             console.log(error);
         }
-        if(!followed) { handleNotification(6); }
+        if(!followed) { handleNotification(5); }
         setFollowed(!followed);
     }
 
     useEffect(() => {
         setFriended(currentUser.friends.includes(user?._id));
         setFollowed(currentUser.followins.includes(user?._id));
-    }, [currentUser, user] );
+    }, [currentUser, user, friended, followed] );
 
     return (
         <div className="header">
@@ -73,18 +73,18 @@ export default function Header({user}) {
                                                             ? PF + "avatars/" + user.profilePicture
                                                             : PF + "avatars/default.jpg"
                                                           } alt=""/>
-                    <button className="headerButton" onClick={handleFriend}>
+                    <button className="headerButton" onClick={() => {handleFriend()}}>
                         { user._id === currentUser._id 
                         ? "Edit" 
-                        : (currentUser.friends).includes(user._id) 
+                        : (currentUser?.friends).includes(user._id) 
                             ? "Unfriend"
                             : "Add Friend" 
                         }
                     </button>
                         { user._id === currentUser._id 
                         ? "" 
-                        : <button className="headerButton" onClick={handleFollow}> 
-                            { (currentUser.followins).includes(user._id)
+                        : <button className="headerButton" onClick={() => {handleFollow()}}> 
+                            { (currentUser?.followins).includes(user._id)
                             ? "Unfollow"
                             : "Follow"    
                             }  

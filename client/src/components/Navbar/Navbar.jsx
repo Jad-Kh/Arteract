@@ -42,15 +42,15 @@ export default function Navbar() {
         let action = "";
 
                if(notification.type === 1) {
-            action = "liked";
+            action = "liked your post";
         } else if(notification.type === 2) {
-            action = "disliked";
+            action = "disliked your post";
         } else if(notification.type === 3) {
-            action = "favorited";
+            action = "favorited your post";
         } else if(notification.type === 4) {
-            action = "commented on";
+            action = "commented on your post";
         } else if(notification.type === 5) {
-            action = "followed";
+            action = "followed you";
         }
 
         return action;
@@ -103,7 +103,7 @@ export default function Navbar() {
                 <div className="navbarIcons">
                     <div className="navbarIconItem" onClick={() => setRequestOpen(!requestOpen)}>
                         <Person/>
-                        <span className="navbarIconBadge">1</span>
+                        <span className="navbarIconBadge">{requestNotifications.length}</span>
                     </div>
                     <div className="navbarIconItem">
                         <Chat/>
@@ -130,7 +130,7 @@ export default function Navbar() {
             {open && (
             <div className="navbarNotifications">
                     {notifications.map((n) =>  
-                        <span className="navbarNotification">{`${n.senderId} ${fetchAction(n)} your post`}</span>)
+                        <span className="navbarNotification">{`${n.senderId} ${fetchAction(n)}`}</span>)
                     }
                     <button className="navbarButton" onClick={handleRead}>
                         Mark as read
