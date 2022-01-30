@@ -1,8 +1,9 @@
 import "./Chatlist.css";
 import Conversation from "../Conversation/Conversation";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
+import { io } from "socket.io-client";
 
 export default function Chatlist({setCurrentChat, onlineUsers}) {
 
@@ -10,10 +11,27 @@ export default function Chatlist({setCurrentChat, onlineUsers}) {
     const [ friends, setFriends ] = useState([]);
     const [ onlineList, setOnlineList ] = useState([]);
     const [ offlineList, setOfflineList ] = useState([]);
+    const socket = useRef();
     const { user } = useContext(AuthContext);
+
+    useEffect(() => {
+        socket.current = io("ws://localhost:8900");
+    }, []);
 
     const handleConversationClick = (conversation) => {
         setCurrentChat(conversation);
+    }
+
+
+    const handleConversationNotification = (friend, type) => {
+
+        const receiverId = friend._id;
+
+        socket.current?.emit("sendNotification", {
+            senderId: user.username,
+            receiverId,
+            type,
+        });
     }
 
     const handleFriendClick = async(friend) => {
@@ -29,6 +47,7 @@ export default function Chatlist({setCurrentChat, onlineUsers}) {
     const addConversation = async(friend) => {
         const response = await axios.post("/conversations/" + user._id + "/" + friend._id);
         setConversations([ ...conversations, response.data])
+        handleConversationNotification(friend, 6);
     }
 
     useEffect(() => {

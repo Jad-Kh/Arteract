@@ -19,7 +19,7 @@ export default function Chat() {
             setMessages(response.data);
         };
         fetchMessages();
-    }, [currentChat]);
+    }, [currentChat, messages]);
 
     return (
         <div>

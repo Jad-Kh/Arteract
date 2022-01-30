@@ -11,9 +11,11 @@ export default function Navbar() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [notifications, setNotifications] = useState([]);
     const [requestNotifications, setRequestNotifications] = useState([]);
+    const [conversationNotifications, setConversationNotifications] = useState([]);
     const socket = useRef();
     const [open, setOpen] = useState(false);
     const [requestOpen, setRequestOpen] = useState(false);
+    const [chatOpen, setChatOpen] = useState(false);
 
     useEffect(() => {
         socket.current = io("ws://localhost:8900");
@@ -21,7 +23,10 @@ export default function Navbar() {
 
     useEffect(() => {
         socket.current?.on("getNotification", (notification) => {
-            setNotifications((prev) => [...prev, notification]);
+            if(notification.type <= 5)
+                setNotifications((prev) => [...prev, notification]);
+            else
+                setConversationNotifications((prev) => [...prev, notification]);
         });
     }, [socket]);
 
@@ -51,6 +56,8 @@ export default function Navbar() {
             action = "commented on your post";
         } else if(notification.type === 5) {
             action = "followed you";
+        } else if(notification.type === 6) {
+            action = "started a new conversation with you"
         }
 
         return action;
@@ -61,6 +68,11 @@ export default function Navbar() {
         setOpen(false);
     };
     
+    const handleChatRead = () => {
+        setConversationNotifications([]);
+        setChatOpen(false);
+    };
+
     const handleFriendsAccept = async(friendRequest) => {
         try {
             await axios.put("/users/" + user?._id + "/acceptfriendrequest", { userId: friendRequest._id });
@@ -105,9 +117,9 @@ export default function Navbar() {
                         <Person/>
                         <span className="navbarIconBadge">{requestNotifications.length}</span>
                     </div>
-                    <div className="navbarIconItem">
+                    <div className="navbarIconItem" onClick={() => setChatOpen(!chatOpen)}>
                         <Chat/>
-                        <span className="navbarIconBadge">1</span>
+                        <span className="navbarIconBadge">{conversationNotifications.length}</span>
                     </div>
                     <div className="navbarIconItem" onClick={() => setOpen(!open)}>
                         <Notifications/>
@@ -132,7 +144,7 @@ export default function Navbar() {
                     {notifications.map((n) =>  
                         <span className="navbarNotification">{`${n.senderId} ${fetchAction(n)}`}</span>)
                     }
-                    <button className="navbarButton" onClick={handleRead}>
+                    <button className="navbarButton" onClick={() => {handleRead()}}>
                         Mark as read
                     </button>
             </div>
@@ -150,6 +162,16 @@ export default function Navbar() {
                         </button>
                     </>)
                     }
+            </div>
+            )}
+            {chatOpen && (
+            <div className="navbarNotifications">
+                {conversationNotifications.map((cN) =>  
+                    <span className="navbarNotification">{`${cN.senderId} ${fetchAction(cN)}`}</span>
+                )}
+                <button className="navbarButton" onClick={() => {handleChatRead()}}>
+                    Mark as read
+                </button>
             </div>
             )}
         </div>
