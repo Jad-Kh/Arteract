@@ -62,7 +62,7 @@ export default function Messager({currentChat, messages, setMessages, setOnlineU
 
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages]);
+    }, []);
 
     return (
         <div className="messagerContainer">

@@ -1,16 +1,22 @@
 const router = require('express').Router();
 const User = require("../models/User");
 const bcrypt = require('bcrypt');
+const moment = require('moment');
 
 router.post("/register", async (request, response) => {
     try {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(request.body.password, salt);
-
+        const userDOB = new Date(request.body.age);
+        const today = new Date();
+        const msDiff = today - userDOB;
+        const age = Math.floor(msDiff / (365.25*24*60*60*1000))
+        
         const user = new User({
             username: request.body.username,
+            age: age,
             email: request.body.email,
-            password:  hashedPassword
+            password: hashedPassword
         });
 
         const register = await user.save();
