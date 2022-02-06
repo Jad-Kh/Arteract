@@ -78,7 +78,7 @@
 }
 
 @media only all and (max-width: 800px) {
-
+n
     .loginContainer {
         width: 80%;
         flex-direction: column;

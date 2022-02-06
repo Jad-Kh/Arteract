@@ -1,6 +1,7 @@
 import Navbar from "../../components/Navbar/Navbar"
 import Sidebar from "../../components/Sidebar/Sidebar"
 import Header from "../../components/Header/Header"
+import EditCard from "../../components/EditCard/EditCard"
 import Share from "../../components/Share/Share"
 import Post from "../../components/Post/Post"
 import Friends from "../../components/Friends/Friends"
@@ -15,6 +16,7 @@ export default function Profile({socket}) {
 
     const [ profileUser, setProfileUser ] = useState({});
     const [ posts, setPosts ] = useState([]);
+    const [ visibility, setVisibility ] = useState(false);
     const { user } = useContext(AuthContext);
     const username = useParams().username;
 
@@ -41,9 +43,10 @@ export default function Profile({socket}) {
                 <Sidebar/>
                 <div className="profileRight">
                     <div className="profileRightTop">
-                        <Header user={profileUser}/>
+                        <Header user={profileUser} visibility={visibility} setVisibility={setVisibility}/>
                     </div>
                     <div className="profileRightBottom">
+                        <EditCard user={profileUser} visibility={visibility}/>
                         <div className="profileRightBottomLeft">
                             { username === user.username && <Share/> } 
                             {posts.map(p => ( 

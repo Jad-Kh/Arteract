@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/AuthContext"
 import "./Header.css"
 import { io } from "socket.io-client";
 
-export default function Header({user}) {
+export default function Header({user, visibility, setVisibility}) {
 
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const { user: currentUser } = useContext(AuthContext);
@@ -30,10 +30,14 @@ export default function Header({user}) {
 
     const handleFriend = async() => {
         try {
-            if(friended) {
-                await axios.put("/users/" + user._id + "/removefriend", { userId: currentUser._id });
+            if(user._id !== currentUser._id) {
+                if(friended) {
+                    await axios.put("/users/" + user._id + "/removefriend", { userId: currentUser._id });
+                } else {
+                    await axios.put("/users/" + user._id + "/sendfriendrequest", { userId: currentUser._id });
+                }
             } else {
-                await axios.put("/users/" + user._id + "/sendfriendrequest", { userId: currentUser._id });
+                setVisibility(!visibility);
             }
         } catch(error) {
             console.log(error)

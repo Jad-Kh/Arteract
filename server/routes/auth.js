@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const User = require("../models/User");
 const bcrypt = require('bcrypt');
-const moment = require('moment');
 
 router.post("/register", async (request, response) => {
     try {
@@ -11,7 +10,7 @@ router.post("/register", async (request, response) => {
         const today = new Date();
         const msDiff = today - userDOB;
         const age = Math.floor(msDiff / (365.25*24*60*60*1000))
-        
+
         const user = new User({
             username: request.body.username,
             age: age,
