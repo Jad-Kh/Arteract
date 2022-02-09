@@ -1,20 +1,10 @@
 const router = require('express').Router();
 const User = require("../models/User");
-const bcrypt = require('bcrypt');
 
 // UPDATE USER
 router.put("/:id", async (request, response) => {
-    if(request.body.userId === request.params.id || request.body.isAdmin)
+    if(request.body.userId === request.params.id)
     {
-        if(request.body.password)
-        {
-            try {
-                const salt = await bcrypt.genSalt(10);
-                request.body.password = await bcrypt.hash(request.body.password, salt);
-            } catch (error) {
-                return response.status(500).json(error);
-            } 
-        }
         try {
             const user = await User.findByIdAndUpdate(request.params.id, {
                 $set: request.body,

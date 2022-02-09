@@ -18,23 +18,27 @@ export default function Profile({socket}) {
     const [ posts, setPosts ] = useState([]);
     const [ visibility, setVisibility ] = useState(false);
     const { user } = useContext(AuthContext);
-    const username = useParams().username;
+    const [ username, setUsername ] = useState(useParams().username);
 
     useEffect(() => {
         const fetchProfileUser = async() => {
             const response = await axios.get("/users/user/" + username);
+            window.history.replaceState({}, "", "/profile/" + username);
             setProfileUser(response.data);
-        }; 
+        };   
+        fetchProfileUser();
+    }, [username])
+
+    useEffect(() => {
         const fetchPosts = async() => {
-            const response = await axios.get("/posts/profile/" + profileUser._id);
+            const response = await axios.get("/posts/profile/" + profileUser?._id);
             response.data.sort((p1, p2) => {
                 return new Date(p2.createdAt) - new Date(p1.createdAt);
             })
             setPosts(response.data);
         };    
-        fetchProfileUser();
         fetchPosts();  
-    }, [profileUser._id, username, user])
+    }, [profileUser, username, user])
 
     return (
         <div>
@@ -46,9 +50,9 @@ export default function Profile({socket}) {
                         <Header user={profileUser} visibility={visibility} setVisibility={setVisibility}/>
                     </div>
                     <div className="profileRightBottom">
-                        <EditCard user={profileUser} visibility={visibility}/>
+                        <EditCard user={profileUser} setUsername={setUsername} visibility={visibility}/>
                         <div className="profileRightBottomLeft">
-                            { username === user.username && <Share/> } 
+                            { username === user?.username && <Share/> } 
                             {posts.map(p => ( 
                                 <Post key={p._id} post={p} /> 
                             )) } 

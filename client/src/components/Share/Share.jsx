@@ -86,7 +86,7 @@ export default function Share() {
                      value={message} onChange={handleChange} ref={inputRef}/>
                 </div>
                 <hr className="shareLine"></hr>
-                <form className="shareBottom" onSubmit={submitHandler}>
+                <form action="/api/uploadavatar" className="shareBottom" onSubmit={submitHandler}>
                     <div className="shareOptions">
                         <label htmlFor="file" className="shareOptionsItem">
                             <div class="fileUpload">

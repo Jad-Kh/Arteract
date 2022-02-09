@@ -30,11 +30,11 @@ export default function Header({user, visibility, setVisibility}) {
 
     const handleFriend = async() => {
         try {
-            if(user._id !== currentUser._id) {
+            if(user._id !== currentUser?._id) {
                 if(friended) {
-                    await axios.put("/users/" + user._id + "/removefriend", { userId: currentUser._id });
+                    await axios.put("/users/" + user._id + "/removefriend", { userId: currentUser?._id });
                 } else {
-                    await axios.put("/users/" + user._id + "/sendfriendrequest", { userId: currentUser._id });
+                    await axios.put("/users/" + user._id + "/sendfriendrequest", { userId: currentUser?._id });
                 }
             } else {
                 setVisibility(!visibility);
@@ -47,9 +47,9 @@ export default function Header({user, visibility, setVisibility}) {
     const handleFollow = async() => {
         try {
             if(followed) {
-                await axios.put("/users/" + user._id + "/unfollow", { userId: currentUser._id });
+                await axios.put("/users/" + user._id + "/unfollow", { userId: currentUser?._id });
             } else {
-                await axios.put("/users/" + user._id + "/follow", { userId: currentUser._id });
+                await axios.put("/users/" + user._id + "/follow", { userId: currentUser?._id });
             }
         } catch(error) {
             console.log(error);
@@ -59,8 +59,8 @@ export default function Header({user, visibility, setVisibility}) {
     }
 
     useEffect(() => {
-        setFriended(currentUser.friends.includes(user?._id));
-        setFollowed(currentUser.followins.includes(user?._id));
+        setFriended(currentUser?.friends.includes(user?._id));
+        setFollowed(currentUser?.followins.includes(user?._id));
     }, [currentUser, user, friended, followed] );
 
     return (
@@ -78,17 +78,17 @@ export default function Header({user, visibility, setVisibility}) {
                                                             : PF + "avatars/default.jpg"
                                                           } alt=""/>
                     <button className="headerButton" onClick={() => {handleFriend()}}>
-                        { user._id === currentUser._id 
+                        { user._id === currentUser?._id 
                         ? "Edit" 
-                        : (currentUser?.friends).includes(user._id) 
+                        : (currentUser?.friends).includes(user?._id) 
                             ? "Unfriend"
                             : "Add Friend" 
                         }
                     </button>
-                        { user._id === currentUser._id 
+                        { user._id === currentUser?._id 
                         ? "" 
                         : <button className="headerButton" onClick={() => {handleFollow()}}> 
-                            { (currentUser?.followins).includes(user._id)
+                            { (currentUser?.followins).includes(user?._id)
                             ? "Unfollow"
                             : "Follow"    
                             }  
