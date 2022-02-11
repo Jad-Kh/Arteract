@@ -1,0 +1,110 @@
+.editPost {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+}
+
+.editPostContainer {
+    padding: 10px;
+}
+
+.editPostTop {
+    display: flex;
+    align-items: center;
+}
+
+.editPostImg {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.editPostInput {
+    width: 80%;
+}
+
+.editPostInput:focus {
+    border: none;
+    outline: none;
+}
+
+.editPostCenter {
+    margin: 20px 0;
+}
+
+.editPostContentImg {
+    margin-top: 20px;
+    width: 100%;
+    max-height: 700px;
+    object-fit: contain;
+}
+
+.editPostLine {
+    margin: 20px;
+}
+
+.editPostBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.editPostOptions {
+    display: flex;
+    margin-left: 20px;
+}
+
+.editPostOptionsItem {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.editPostIcon {
+    font-size: 18px;
+    margin-right: 3px;
+}
+
+.editPostOptionsItem span {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.editPostButton {
+    border: none;
+    padding: 7px;
+    border-radius: 5px;
+    background-color: #1877f2;
+    font-weight: 500;
+    margin-right: 20px;
+    cursor: pointer;
+    color: white;
+}
+
+.emojiPickerContainer {
+    display: block;
+}
+
+.emojiPickerContainerHidden {
+    display: none;
+}
+
+.fileUpload {
+    overflow: hidden;
+}
+
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}

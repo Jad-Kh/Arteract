@@ -1,6 +1,7 @@
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import CommentSection from "./pages/CommentSection/CommentSection";
+import EditPostSection from "./pages/EditPostSection/EditPostSection";
 import Transactions from "./pages/Transactions/Transactions";
 import Friends from "./pages/Friends/Friends";
 import Login from "./pages/Login/Login";
@@ -30,6 +31,9 @@ function App() {
         </Route>
         <Route path="/postInfo/:postId">
           <CommentSection/>
+        </Route>
+        <Route path="/editPost/:postId">
+          <EditPostSection/>
         </Route>
         <Route path="/friends/:username">
           <Friends/>

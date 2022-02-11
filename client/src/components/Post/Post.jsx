@@ -64,7 +64,7 @@ export default function Post({post, socket}) {
         setIsFavorited(!isFavorited);
         handleNotification(3);
     }
-    
+
     const handleDelete = () => {
         try {
             axios.delete("/posts/" + post?._id, { data: { userId: post?.userId }});
@@ -112,7 +112,9 @@ export default function Post({post, socket}) {
                          <MoreVert htmlColor="lightgreen"/>
                          { user._id === currentUser?._id &&  
                             <div className="postDropdownContent">
-                                <div className="postDropdownButton">Edit</div>
+                                <Link to={`/editPost/${post?._id}`} style={{ textDecoration: "none" }}>
+                                    <div className="postDropdownButton">Edit</div>
+                                </Link>
                                 <div className="postDropdownButton" onClick={handleDelete}>Delete</div>
                             </div>
                          }

@@ -2,6 +2,7 @@ import "./Navbar.css"
 import { Search, Person, Chat, Notifications }  from "@material-ui/icons"
 import { useContext, useEffect, useState, useRef } from 'react'
 import { AuthContext } from "../../context/AuthContext"
+import { Link } from "react-router-dom"
 import axios from "axios"
 import { io } from "socket.io-client";
 
@@ -133,7 +134,9 @@ export default function Navbar() {
                                 : PF + "avatars/default.jpg"
                              } alt="" className="navbarImg"/>
                     <div className="navbarDropdownContent">
-                        <p>Edit Profile</p>
+                        <Link to={`/profile/${user?.username}`} style={{ textDecoration: "none" }}>
+                            <p>Edit Profile</p>
+                        </Link>
                         <p>Settings</p>
                         <p>Log out</p>
                     </div>
