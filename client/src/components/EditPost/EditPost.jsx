@@ -2,12 +2,14 @@ import { createRef, useRef, useEffect, useState, useContext } from 'react';
 import "./EditPost.css";
 import { PermMedia, Label, EmojiEmotions } from "@material-ui/icons";
 import Picker from "emoji-picker-react";
+import { Link } from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 
 export default function EditPost({post}) {
 
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const { user } = useContext(AuthContext);
     const [file, setFile] = useState();
 
     const inputRef = createRef();
@@ -36,9 +38,15 @@ export default function EditPost({post}) {
 
     const submitHandler = async(e) => {
         e.preventDefault()
+        let newDesc;
+        if(inputRef.current.value !== "") {
+            newDesc = inputRef.current.value;
+        } else {
+            newDesc = post?.description;
+        }
         const newPost = {
             userId: user?._id,
-            description: inputRef.current.value
+            description: newDesc
         }
         if(file) {
             const data = new FormData();
@@ -53,22 +61,16 @@ export default function EditPost({post}) {
             }
         }
         try {
-            await axios.post("/posts", newPost);
+            await axios.put("/posts/" + post?._id, newPost);
             setMessage('');
         } catch(error) {
             console.log(error);
         }
     }
 
-    const [ user, setUser ] = useState({});
     useEffect(() => {
-        const fetchUser = async() => {
-            const response = await axios.get("/users/" + post?.userId);
-            setUser(response.data);
-        }
-        fetchUser();
         inputRef.current.selectionEnd = cursorPosition;
-    }, [cursorPosition], post?.userId)
+    }, [cursorPosition])
 
     let emojiClass = hideState ? "emojiPickerContainerHidden" : "emojiPickerContainer" ;
 
@@ -111,7 +113,9 @@ export default function EditPost({post}) {
                             <span>Emojies</span>
                         </div>
                     </div>
-                    <button className="editPostButton">Edit</button>
+                    <Link to={`/`} style={{ textDecoration: "none" }}>
+                        <button className="editPostButton">Edit</button>
+                    </Link>
                 </form>
                 { 
                 <div className={emojiClass}>
