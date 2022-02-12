@@ -4,6 +4,7 @@ import CommentSection from "./pages/CommentSection/CommentSection";
 import EditPostSection from "./pages/EditPostSection/EditPostSection";
 import Transactions from "./pages/Transactions/Transactions";
 import Friends from "./pages/Friends/Friends";
+import Gallery from "./pages/Gallery/Gallery";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Chat from "./pages/Chat/Chat";
@@ -25,6 +26,9 @@ function App() {
         </Route>
         <Route path="/profile/:username">
           <Profile/>
+        </Route>
+        <Route path="/gallery/:username">
+          <Gallery/>
         </Route>
         <Route path="/transactions">
           <Transactions/>

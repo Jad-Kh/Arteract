@@ -1,0 +1,43 @@
+.galleryContainer {
+    display: flex;
+}
+
+.galleryRight {
+    flex: 9;
+    display: flex;
+}
+
+.galleryRightLeft {
+    flex: 6;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+.galleryRightRight {
+    flex: 1.5;
+    margin-top: 15px;
+    margin-left: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+}
+
+@media only all and (max-width: 750px) {
+
+    .galleryRightLeft {
+        flex: 5;
+    }
+
+    .galleryRightRight {
+        flex: 0;
+        display: none;
+    }
+}
+
+@media only all and (max-width: 600px) {
+
+    .galleryRight {
+        flex: 5.5;
+    }
+}

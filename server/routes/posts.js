@@ -141,6 +141,22 @@ router.get("/profile/:id", async(request, response) => {
     }
 });
 
+// GET FAVORITES OF USER 
+router.get("/favorites/:id", async(request, response) => {
+    try {
+        const user = await User.findById(request.params.id);
+        const favorites = await Promise.all(
+            user.favorites.map( async(postId) => {
+                const post = await Post.findById(postId);
+                return post;
+            }),
+        )
+        return response.status(200).json(favorites);
+    } catch(error) {
+        return response.status(500).json(error);
+    }
+});
+
 // GET ACTIVITY POST
 router.get("/activity/:userId", async(request, response) => {
     try {

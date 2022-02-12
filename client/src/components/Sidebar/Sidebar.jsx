@@ -24,10 +24,12 @@ export default function Sidebar() {
                         <span>Profile</span>
                     </li>
                     </Link>
+                    <Link to={`/gallery/${user?.username}`} style={{ textDecoration: "none" }}>
                     <li className="sidebarMenuItem">
                         <PhotoLibrary htmlColor="#1877f2" className="sidebarIcon"/>
                         <span>Gallery</span>
                     </li>
+                    </Link>
                     <li className="sidebarMenuItem">
                         <Portrait htmlColor="#1877f2" className="sidebarIcon"/>
                         <span>Portfolio</span>
