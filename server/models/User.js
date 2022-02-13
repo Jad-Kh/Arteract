@@ -66,7 +66,23 @@ const userSchema = new mongoose.Schema({
     description: {
         type: String,
         max: 50
-    }
+    },
+    isArtist: {
+        type: Boolean,
+        default: false
+    }, 
+    orders: {
+        type: Array,
+        default: []
+    },
+    portfolioId: {
+        type: String,
+        default: "No porfolio"
+    },
+    storeId: {
+        type: String,
+        default: "No store"
+    },
 },
 {
     timestamps: true
