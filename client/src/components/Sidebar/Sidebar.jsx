@@ -1,5 +1,5 @@
 import "./Sidebar.css"
-import { RssFeed, Person, PhotoLibrary, Portrait, AttachMoney, Group, Chat, HelpOutline } from "@material-ui/icons"
+import { RssFeed, Person, PhotoLibrary, Portrait, Store, AttachMoney, Group, Chat, HelpOutline } from "@material-ui/icons"
 import { useContext } from 'react'
 import { Link } from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext"
@@ -30,10 +30,18 @@ export default function Sidebar() {
                         <span>Gallery</span>
                     </li>
                     </Link>
+                    <Link to={`/portfolio`} style={{ textDecoration: "none" }}>
                     <li className="sidebarMenuItem">
                         <Portrait htmlColor="#1877f2" className="sidebarIcon"/>
                         <span>Portfolio</span>
                     </li>
+                    </Link>
+                    <Link to={`/store`} style={{ textDecoration: "none" }}>
+                    <li className="sidebarMenuItem">
+                        <Store htmlColor="#1877f2" className="sidebarIcon"/>
+                        <span>Store</span>
+                    </li>
+                    </Link>
                     <Link to={"/transactions"} style={{ textDecoration: "none" }}>
                     <li className="sidebarMenuItem">
                         <AttachMoney htmlColor="#1877f2" className="sidebarIcon"/>

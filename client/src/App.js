@@ -1,5 +1,6 @@
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
+import Portfolio from "./pages/Portfolio/Portfolio";
 import CommentSection from "./pages/CommentSection/CommentSection";
 import EditPostSection from "./pages/EditPostSection/EditPostSection";
 import Transactions from "./pages/Transactions/Transactions";
@@ -26,6 +27,9 @@ function App() {
         </Route>
         <Route path="/profile/:username">
           <Profile/>
+        </Route>
+        <Route path="/portfolio">
+          <Portfolio/>
         </Route>
         <Route path="/gallery/:username">
           <Gallery/>
