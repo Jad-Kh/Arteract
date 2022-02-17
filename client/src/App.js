@@ -28,7 +28,7 @@ function App() {
         <Route path="/profile/:username">
           <Profile/>
         </Route>
-        <Route path="/portfolio">
+        <Route path="/portfolio/:username">
           <Portfolio/>
         </Route>
         <Route path="/gallery/:username">

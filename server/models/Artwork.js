@@ -5,6 +5,10 @@ const artworkSchema = new mongoose.Schema({
        type: String,
        required: true
    },
+   title: {
+       type: String,
+       required: true
+   },
    description: {
        type: String,
        default: ""
@@ -18,7 +22,7 @@ const artworkSchema = new mongoose.Schema({
        default: ""
    },
    price: {
-       type: String,
+       type: Number,
        default: ""
    },
    sections: {

@@ -19,6 +19,18 @@
     object-fit: cover;
 }
 
+.portfolioHeading {
+    display: flex;
+    flex-direction: column;
+    margin: 3px 5px;
+}
+
+.portfolioInfo {
+    display: flex;
+    flex-direction: column;
+    margin: 5px 10px;
+}
+
 .portfolioButton {
     background-color: #1877f2;
     border: none;

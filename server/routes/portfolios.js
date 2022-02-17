@@ -3,8 +3,9 @@ const Portfolio = require("../models/Portfolio");
 const Section = require("../models/Section");
 
 // CREATE PORTFOLIO
-router.post("/new", async(request, response) => {
+router.post("/", async(request, response) => {
     const newPortfolio = new Portfolio(request.body);
+    newPortfolio.types = newPortfolio.types.filter((type) => type === "");
     try {
         const portfolio = await newPortfolio.save();
         return response.status(200).json(portfolio);
@@ -43,6 +44,16 @@ router.delete("/:id", async(request, response) => {
     try {
         await Portfolio.findByIdAndDelete(request.params.id);
         return response.status(200).json("Portfolio has been deleted");
+    } catch(error) {
+        return response.status(500).json(error);
+    }
+});
+
+// GET PORTFOLIO
+router.get("/:id", async(request, response) => {
+    try {
+        const portfolio = Portfolio.find({ artistId: request.params.id });
+        return response.status(200).json(portfolio)
     } catch(error) {
         return response.status(500).json(error);
     }

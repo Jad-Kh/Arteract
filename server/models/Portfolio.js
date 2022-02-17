@@ -9,6 +9,18 @@ const portfolioSchema = new mongoose.Schema({
        type: String,
        default: ""
    },
+   level: {
+       type: String,
+       default: ""
+   },
+   types: {
+       type: Array,
+       default: []
+   },
+   subject: {
+       type: String,
+       default: []
+   },
    sections: {
        type: Array,
        default: []

@@ -1,11 +1,13 @@
 import "./Section.css";
 import { AddCircle, IndeterminateCheckBox } from "@material-ui/icons"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from "axios"
 import PortfolioEntry from "../../components/PortfolioEntry/PortfolioEntry";
 
-export default function Section() {
+export default function Section({section}) {
 
     const [ hideState, setHideState ] = useState(true);
+    const [ artworks, setArtworks ] = useState([]);
 
     let focus = hideState ? "sectionContainer" : "sectionContainerFocused";
 
@@ -13,10 +15,18 @@ export default function Section() {
         setHideState(!hideState);
     }
 
+    useEffect(() => {
+        const fetchArtworks = async() => {
+            const response = await axios.get("/artworks/section" + section?._id);
+            setArtworks(response.data);
+        }
+        fetchArtworks();
+    }, [artworks, section]);
+
     return (
         <div className="section">
             <div className="sectionTop">
-                <h1 className="sectionTitle">Section Title</h1>
+                <h1 className="sectionTitle">{section?.title}</h1>
                 <div className="sectionButton" onClick={handleClick}>{
                                                                         hideState 
                                                                         ? <AddCircle/>
@@ -24,16 +34,11 @@ export default function Section() {
                                                                      }</div>
             </div>
             <div className={focus}>
-                <PortfolioEntry/>
-                <PortfolioEntry/>
-                <PortfolioEntry/>
-                <PortfolioEntry/>
-                <PortfolioEntry/>
-                <PortfolioEntry/>
-                <PortfolioEntry/>
-                <PortfolioEntry/>
-                <PortfolioEntry/>
-                <PortfolioEntry/>
+                {
+                    artworks.map((artwork => {
+                        <PortfolioEntry artwork={artwork}/>
+                    }))
+                }
             </div>
         </div>
     )

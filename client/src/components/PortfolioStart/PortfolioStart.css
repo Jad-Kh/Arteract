@@ -1,0 +1,124 @@
+.portfolioStart {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.portfolioStartContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.portfolioStartRight {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.portfolioStartLogo {
+    font-size: 50px;
+    font-weight: 800;
+    color: #1877f2;
+}
+
+.portfolioStartSpan {
+    font-size: 24px;
+}
+
+.portfolioStartBox {
+    height: 400px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.portfolioStartBoxHidden {
+    display: none;
+}
+
+.portfolioStartInput {
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+.portfolioChosenContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolioChosenType {
+    height: 30px;
+    width: 150px;
+    border-radius: 10px;
+    background-color: #579bf3d2;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+} 
+
+.portfolioChosenTypeText {
+    color: #1877f2;
+    font-size: 20px;
+}
+
+.portfolioChosenTypeRemove {
+    position: relative;
+}
+
+.portfolioSubjectInputText {
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+.portfolioStartButton {
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: #1877f2;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer; 
+}
+
+.portfolioStartForgot {
+    text-align: center;
+    color: #1877f2; 
+}
+
+.portfolioStartRegisterButton {
+    width: 60%;
+    align-self: center;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: #42b72a;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+@media only all and (max-width: 800px) {
+n
+    .portfolioStartContainer {
+        width: 80%;
+        flex-direction: column;
+    }   
+
+    .portfolioStartLeft {
+        margin-bottom: 20px;
+    }
+}
