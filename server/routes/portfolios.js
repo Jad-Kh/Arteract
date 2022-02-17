@@ -17,7 +17,7 @@ router.post("/", async(request, response) => {
 // ADD SECTION
 router.put("/section", async(request, response) => {
     const newSection = new Section(request.body);
-    const portfolio = await find({ artistId: request.body.artistId });
+    const portfolio = await Portfolio.find({ artistId: request.body.artistId });
     try {
         const section = await newSection.save();
         await portfolio.updateOne( { $push: { sections: section } } );
@@ -49,10 +49,10 @@ router.delete("/:id", async(request, response) => {
     }
 });
 
-// GET PORTFOLIO
-router.get("/:id", async(request, response) => {
+// GET PORTFOLIO BY ARTIST
+router.get("/artist/:artistId", async(request, response) => {
     try {
-        const portfolio = Portfolio.find({ artistId: request.params.id });
+        const portfolio = await Portfolio.findOne({ artistId: request.params.artistId });
         return response.status(200).json(portfolio)
     } catch(error) {
         return response.status(500).json(error);

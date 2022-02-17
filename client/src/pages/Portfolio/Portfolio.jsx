@@ -13,7 +13,7 @@ export default function Portfolio() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const { user } = useContext(AuthContext);
     const [ artist, setArtist ] = useState({});
-    const [ portfolio, setPortfolio ] = useState({});
+    const [ portfolio, setPortfolio ] = useState();
     const [ sections, setSections ] = useState([]);
     const [ visibility, setVisibility ] = useState(false);
     const username = useParams().username;
@@ -28,7 +28,7 @@ export default function Portfolio() {
 
     useEffect(() => {
         const fetchPortfolio = async() => {
-            const response = await axios.get("/portfolios/" + artist?._id);
+            const response = await axios.get("/portfolios/artist/" + artist?._id);
             setPortfolio(response.data);
         }
         fetchPortfolio();
@@ -47,9 +47,7 @@ export default function Portfolio() {
             <Navbar/>
             <div className="portfolioContainer">
                 <Sidebar/>
-                { console.log(artist),
-                console.log(portfolio),
-                portfolio._id  
+                { portfolio?._id  
                 ? 
                 <div className="portfolioRight">
                     <div className="portfolioTop">
@@ -66,10 +64,7 @@ export default function Portfolio() {
                                 <span>{type + ", "}</span>)
                             : ""}
                             </span>
-                            <span className="portfolioInfoSpan">Subjects: { portfolio?.subjects ?
-                                portfolio?.subjects.map((subject) => 
-                                <span>{subject + ", "}</span>)
-                            : ""}
+                            <span className="portfolioInfoSpan">Subject: { portfolio?.subject }
                             </span>
                         </div>
                         {

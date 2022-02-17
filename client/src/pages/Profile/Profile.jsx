@@ -23,7 +23,6 @@ export default function Profile({socket}) {
     useEffect(() => {
         const fetchProfileUser = async() => {
             const response = await axios.get("/users/user/" + username);
-            window.history.replaceState({}, "", "/profile/" + username);
             setProfileUser(response.data);
         };   
         fetchProfileUser();
