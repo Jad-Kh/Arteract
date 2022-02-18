@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Section from "../../components/Section/Section";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import PortfolioStart from "../../components/PortfolioStart/PortfolioStart"
+import SectionStart from "../../components/SectionStart/SectionStart"
 import { useState, useEffect, useContext } from "react"
 import axios from "axios"
 import { AuthContext } from "../../context/AuthContext"
@@ -16,6 +17,7 @@ export default function Portfolio() {
     const [ portfolio, setPortfolio ] = useState();
     const [ sections, setSections ] = useState([]);
     const [ visibility, setVisibility ] = useState(false);
+    const [ sectionVisibility, setSectionVisibility ] = useState(false);
     const username = useParams().username;
 
     useEffect(() => {
@@ -70,7 +72,9 @@ export default function Portfolio() {
                         {
                             user?._id === artist?._id 
                             ? <div>
-                                <button className="portfolioButton">Add Section</button>
+                                <button className="portfolioButton" onClick={() => setSectionVisibility(!sectionVisibility)}>
+                                    Add Section
+                                </button>
                                 <button className="portfolioButton">Add Artwork</button>
                               </div>
                             : 
@@ -78,9 +82,13 @@ export default function Portfolio() {
                         }
                     </div>
                     {
+                        sections.length !== 0
+                        ?
                         sections.map((section) => {
                             <Section section={section}/>
                         })
+                        :
+                        <SectionStart user={artist} visibility={sectionVisibility} setVisibility={setSectionVisibility} portfolio={portfolio} type={"portfolio"}/>
                     }
                 </div>
                 :

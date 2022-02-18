@@ -15,13 +15,12 @@ router.post("/", async(request, response) => {
 });
 
 // ADD SECTION
-router.put("/section", async(request, response) => {
+router.put("/section/:id", async(request, response) => {
     const newSection = new Section(request.body);
-    const portfolio = await Portfolio.find({ artistId: request.body.artistId });
+    const portfolio = await Portfolio.findById(request.params.id);
     try {
-        const section = await newSection.save();
-        await portfolio.updateOne( { $push: { sections: section } } );
-        return response.status(200).json(section);           
+        await portfolio.updateOne( { $push: { sections: newSection } } );
+        return response.status(200).json(newSection);           
     } catch(error) {
         return response.status(500).json(error);
     }
