@@ -34,22 +34,6 @@ router.get("/:id", async(request, response) => {
     }
 });
 
-// GET SECTIONS OF PORTFOLIO
-router.get("/portfolio/:portfolioId", async(request, response) => {
-    try {
-        const portfolio = await Portfolio.findById(request.params.portfolioId);
-        const sections = await Promise.all(
-            portfolio.sections.map( async(sectionId) => {
-                const section = await Section.findById(sectionId);
-                return section;
-            })
-        );
-        return response.status(200).json(sections);
-    } catch(error) {
-        return response.status(500).json(error);
-    }
-});
-
 // ADD ARTWORK TO SECTION
 router.put("/:id/add", async(request, response) => {
     try {

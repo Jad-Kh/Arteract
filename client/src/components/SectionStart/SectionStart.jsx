@@ -7,7 +7,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import axios from "axios";
 import "./SectionStart.css";
 
-export default function SecionStart({user, visibility, setVisibility, portfolio, type}) {
+export default function SecionStart({user, visibility, setVisibility, portfolio, setPortfolio, type}) {
 
     const inputRef = createRef();
 
@@ -21,6 +21,7 @@ export default function SecionStart({user, visibility, setVisibility, portfolio,
         try {
             await axios.put("/portfolios/section/" + portfolio?._id, newSection);
             setVisibility(!visibility);
+            setPortfolio(portfolio);
         } catch(error) {
             console.log(error);
         }

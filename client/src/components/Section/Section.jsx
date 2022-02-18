@@ -16,11 +16,8 @@ export default function Section({section}) {
     }
 
     useEffect(() => {
-        const fetchArtworks = async() => {
-            const response = await axios.get("/artworks/section" + section?._id);
-            setArtworks(response.data);
-        }
-        fetchArtworks();
+            console.log(section);
+            setArtworks(section?.artworks);
     }, [artworks, section]);
 
     return (
@@ -35,7 +32,7 @@ export default function Section({section}) {
             </div>
             <div className={focus}>
                 {
-                    artworks.map((artwork => {
+                    section?.artworks.map((artwork => {
                         <PortfolioEntry artwork={artwork}/>
                     }))
                 }

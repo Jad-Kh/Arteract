@@ -43,3 +43,9 @@
     margin: 5px 10px;
     cursor: pointer;
 }
+
+.portfolioSections {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}

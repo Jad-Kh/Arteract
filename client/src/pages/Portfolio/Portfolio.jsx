@@ -15,7 +15,6 @@ export default function Portfolio() {
     const { user } = useContext(AuthContext);
     const [ artist, setArtist ] = useState({});
     const [ portfolio, setPortfolio ] = useState();
-    const [ sections, setSections ] = useState([]);
     const [ visibility, setVisibility ] = useState(false);
     const [ sectionVisibility, setSectionVisibility ] = useState(false);
     const username = useParams().username;
@@ -34,15 +33,7 @@ export default function Portfolio() {
             setPortfolio(response.data);
         }
         fetchPortfolio();
-    }, [artist, username, user]);
-
-    useEffect(() => {
-        const fetchSections = async() => {
-            const response = await axios.get("/sections/portfolio/" + portfolio?._id);
-            setSections(response.data);
-        }
-        fetchSections();
-    }, [portfolio, sections]);
+    }, [artist, username, user, portfolio?.sections]);
 
     return (
         <div className="portfolio">
@@ -61,7 +52,8 @@ export default function Portfolio() {
                         <h1 className="portfolioHeading">{`Portfolio of ${artist?.username}`}</h1>
                         <div className="portfolioInfo">
                             <span className="portfolioInfoSpan">Level: {portfolio?.level}</span>
-                            <span className="portfolioInfoSpan">Type: { portfolio?.types ?
+                            <span className="portfolioInfoSpan">Type: { portfolio?.types 
+                            ?
                                 portfolio?.types.map((type) => 
                                 <span>{type + ", "}</span>)
                             : ""}
@@ -71,6 +63,7 @@ export default function Portfolio() {
                         </div>
                         {
                             user?._id === artist?._id 
+                            
                             ? <div>
                                 <button className="portfolioButton" onClick={() => setSectionVisibility(!sectionVisibility)}>
                                     Add Section
@@ -78,18 +71,15 @@ export default function Portfolio() {
                                 <button className="portfolioButton">Add Artwork</button>
                               </div>
                             : 
-                                <button className="portfolioButton">Browse Store</button>                         
+                                <button className="portfolioButton">Browse Store</button> 
                         }
+                        {
+                                portfolio?.sections.map((section) => 
+                                    <Section section={section}/>
+                                )
+                        }                 
                     </div>
-                    {
-                        sections.length !== 0
-                        ?
-                        sections.map((section) => {
-                            <Section section={section}/>
-                        })
-                        :
-                        <SectionStart user={artist} visibility={sectionVisibility} setVisibility={setSectionVisibility} portfolio={portfolio} type={"portfolio"}/>
-                    }
+                    <SectionStart user={artist} visibility={sectionVisibility} setVisibility={setSectionVisibility} portfolio={portfolio} setPortfolio={setPortfolio} type={"portfolio"}/>
                 </div>
                 :
                     <div className="portfolioRight">
