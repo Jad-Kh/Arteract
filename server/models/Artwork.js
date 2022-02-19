@@ -29,10 +29,6 @@ const artworkSchema = new mongoose.Schema({
        type: Array,
        default: []
    },
-   comments: {
-       type: String,
-       default: ""
-   },
 },
 {
     timestamps: true

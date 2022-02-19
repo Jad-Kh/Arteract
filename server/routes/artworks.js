@@ -3,7 +3,7 @@ const Artwork = require("../models/Artwork");
 const Section = require("../models/Section");
 
 // ADD ARTWORK
-router.post("/new", async(request, response) => {
+router.post("/", async(request, response) => {
     const newArtwork = new Artwork(request.body);
     try {
         const artwork = await newArtwork.save();

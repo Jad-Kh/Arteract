@@ -1,9 +1,4 @@
-import { Circularprogress } from "@material-ui/core";
-import { createRef, useContext, useState, useEffect } from 'react';
-import { AuthContext } from "../../context/AuthContext";
-import { AddCircle } from "@material-ui/icons"
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import { createRef } from 'react';
 import axios from "axios";
 import "./SectionStart.css";
 

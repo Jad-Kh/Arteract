@@ -37,9 +37,15 @@ router.get("/:id", async(request, response) => {
 // ADD ARTWORK TO SECTION
 router.put("/:id/add", async(request, response) => {
     try {
-        const artwork = Artwork.findById(request.body.id);
-        const section = Section.findById(request.params.id);
-        await artwork.updateOne( { $push: { sections: request.params.id } } );
+        const artwork = await Artwork.findById(request.body.id);
+        const portfolio = await Portfolio.find({ artistId: artwork.artistId })
+        var section;
+        portfolio.sections.map((s) => {
+            if(s._id === request.params.id) {
+                section = s;
+            }
+        })
+        await artwork.updateOne( { $push: { sections: section._id } } );
         await section.updateOne( { $push: { artworks: request.body.id } } );
         return response.status(200).json("Added");
     } catch(error) {

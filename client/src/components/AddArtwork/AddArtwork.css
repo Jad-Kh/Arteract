@@ -1,0 +1,124 @@
+.addArtworkStart {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addArtworkStartContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.addArtworkStartRight {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.addArtworkStartLogo {
+    font-size: 50px;
+    font-weight: 800;
+    color: #1877f2;
+}
+
+.addArtworkStartSpan {
+    font-size: 24px;
+}
+
+.addArtworkStartBox {
+    height: 400px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.addArtworkStartBoxHidden {
+    display: none;
+}
+
+.addArtworkStartInput {
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+.addArtworkChosenContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.addArtworkChosenType {
+    height: 30px;
+    width: 150px;
+    border-radius: 10px;
+    background-color: #579bf3d2;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+} 
+
+.addArtworkChosenTypeText {
+    color: #1877f2;
+    font-size: 20px;
+}
+
+.addArtworkChosenTypeRemove {
+    position: relative;
+}
+
+.addArtworkSubjectInputText {
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+.addArtworkStartButton {
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: #1877f2;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer; 
+}
+
+.addArtworkStartForgot {
+    text-align: center;
+    color: #1877f2; 
+}
+
+.addArtworkStartRegisterButton {
+    width: 60%;
+    align-self: center;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: #42b72a;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+@media only all and (max-width: 800px) {
+
+    .addArtworkStartContainer {
+        width: 80%;
+        flex-direction: column;
+    }   
+
+    .addArtworkStartLeft {
+        margin-bottom: 20px;
+    }
+}

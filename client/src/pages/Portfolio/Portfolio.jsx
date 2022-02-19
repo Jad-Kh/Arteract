@@ -4,6 +4,7 @@ import Section from "../../components/Section/Section";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import PortfolioStart from "../../components/PortfolioStart/PortfolioStart"
 import SectionStart from "../../components/SectionStart/SectionStart"
+import AddArtwork from "../../components/AddArtwork/AddArtwork"
 import { useState, useEffect, useContext } from "react"
 import axios from "axios"
 import { AuthContext } from "../../context/AuthContext"
@@ -17,6 +18,7 @@ export default function Portfolio() {
     const [ portfolio, setPortfolio ] = useState();
     const [ visibility, setVisibility ] = useState(false);
     const [ sectionVisibility, setSectionVisibility ] = useState(false);
+    const [ artworkVisibility, setArtworkVisibility ] = useState(false);
     const username = useParams().username;
 
     useEffect(() => {
@@ -68,7 +70,9 @@ export default function Portfolio() {
                                 <button className="portfolioButton" onClick={() => setSectionVisibility(!sectionVisibility)}>
                                     Add Section
                                 </button>
-                                <button className="portfolioButton">Add Artwork</button>
+                                <button className="portfolioButton" onClick={() => setArtworkVisibility(!artworkVisibility)}>
+                                    Add Artwork
+                                </button>
                               </div>
                             : 
                                 <button className="portfolioButton">Browse Store</button> 
@@ -80,6 +84,7 @@ export default function Portfolio() {
                         }                 
                     </div>
                     <SectionStart user={artist} visibility={sectionVisibility} setVisibility={setSectionVisibility} portfolio={portfolio} setPortfolio={setPortfolio} type={"portfolio"}/>
+                    <AddArtwork user={artist} visibility={artworkVisibility} setVisibility={setArtworkVisibility} portfolio={portfolio} setPortfolio={setPortfolio}/>
                 </div>
                 :
                     <div className="portfolioRight">
