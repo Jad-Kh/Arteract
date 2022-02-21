@@ -25,9 +25,9 @@ const artworkSchema = new mongoose.Schema({
        type: Number,
        default: ""
    },
-   sections: {
-       type: Array,
-       default: []
+   section: {
+       type: String,
+       default: ""
    },
 },
 {

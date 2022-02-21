@@ -17,10 +17,11 @@ router.post("/", async(request, response) => {
 // ADD SECTION
 router.put("/section/:id", async(request, response) => {
     const newSection = new Section(request.body);
+    const section = await newSection.save();
     const portfolio = await Portfolio.findById(request.params.id);
     try {
-        await portfolio.updateOne( { $push: { sections: newSection } } );
-        return response.status(200).json(newSection);           
+        await portfolio.updateOne( { $push: { sections: section._id } } );
+        return response.status(200).json(section);           
     } catch(error) {
         return response.status(500).json(error);
     }
@@ -43,6 +44,16 @@ router.delete("/:id", async(request, response) => {
     try {
         await Portfolio.findByIdAndDelete(request.params.id);
         return response.status(200).json("Portfolio has been deleted");
+    } catch(error) {
+        return response.status(500).json(error);
+    }
+});
+
+// GET PORTFOLIO 
+router.get("/:id", async(request, response) => {
+    try {
+        const portfolio = await Portfolio.findById(request.params.id);
+        return response.status(200).json(portfolio)
     } catch(error) {
         return response.status(500).json(error);
     }

@@ -4,37 +4,18 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import "./AddArtwork.css";
 
-export default function AddArtwork({user, visibility, setVisibility, portfolio, setPortfolio}) {
+export default function AddArtwork({user, visibility, setVisibility, portfolio, setPortfolio, options}) {
 
     const titleInputRef = createRef();
     const descInputRef = createRef();
     const [ file, setFile ] = useState();
-    const [ newlyCreatedArtwork, setNewlyCreatedArtwork ] = useState();
-    const [ options, setOptions ] = useState([]);
     const [ inputValue, setInputValue ] = useState();
     const [ sections, setSections ] = useState([]);
-    const [ sectionIds, setSectionIds ] = useState([])
-
-    useEffect(() => {
-        portfolio?.sections.map((section) => 
-            setOptions((prev) => [...prev, section.title])
-        )
-    }, [])
 
     useEffect(() => {
         sections.includes(inputValue)
         ? setSections(sections)
         : setSections((prev) => [...prev, inputValue])
-    }, [inputValue])
-
-    useEffect(() => {
-        sections.includes(inputValue)
-        ? setSectionIds(sectionIds)
-        : portfolio?.sections.map((section) => 
-            section?.title === inputValue
-            ? setSectionIds((prev) => [...prev, section._id])
-            : setSectionIds(sectionIds)
-          )  
     }, [inputValue])
 
     const handleClick = async(e) => {
@@ -59,10 +40,11 @@ export default function AddArtwork({user, visibility, setVisibility, portfolio, 
             }
         }
         try {
-            const response = await axios.post("/artworks/", newArtwork);
-            setNewlyCreatedArtwork(response.data);
-            sectionIds.map( async(sectionId) =>
-                await axios.put("/sections/" + sectionId + "/add/", newlyCreatedArtwork)
+            const newResponse = await axios.post("/artworks/", newArtwork);
+            var currentSection;
+            sections?.map( async(section) =>
+                currentSection = await axios.get("/sections/" + user._id + "/" + section),
+                await axios.put("/sections/" + currentSection.data._id + "/add/", { artId: newResponse.data._id })
             )
             setVisibility(!visibility);
             setPortfolio(portfolio);

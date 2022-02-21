@@ -31,7 +31,7 @@ export default function Section({section}) {
             </div>
             <div className={focus}>
                 {
-                    section?.artworks.map((artwork => 
+                    section?.artworks?.map((artwork => 
                         <PortfolioEntry artwork={artwork}/>
                     ))
                 }

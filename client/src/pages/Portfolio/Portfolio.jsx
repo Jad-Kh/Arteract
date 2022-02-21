@@ -16,9 +16,9 @@ export default function Portfolio() {
     const { user } = useContext(AuthContext);
     const [ artist, setArtist ] = useState({});
     const [ portfolio, setPortfolio ] = useState();
+    const [ sections, setSections ] = useState([]);
     const [ visibility, setVisibility ] = useState(false);
     const [ sectionVisibility, setSectionVisibility ] = useState(false);
-    const [ artworkVisibility, setArtworkVisibility ] = useState(false);
     const username = useParams().username;
 
     useEffect(() => {
@@ -35,7 +35,15 @@ export default function Portfolio() {
             setPortfolio(response.data);
         }
         fetchPortfolio();
-    }, [artist, username, user, portfolio?.sections]);
+    }, [artist]);
+
+    useEffect(() => {
+        const fetchSections = async() => {
+            const response = await axios.get("/sections/portfolio/" + portfolio?._id);
+            setSections(response.data);
+        }
+        fetchSections();
+    }, [portfolio, sections]);
 
     return (
         <div className="portfolio">
@@ -70,21 +78,17 @@ export default function Portfolio() {
                                 <button className="portfolioButton" onClick={() => setSectionVisibility(!sectionVisibility)}>
                                     Add Section
                                 </button>
-                                <button className="portfolioButton" onClick={() => setArtworkVisibility(!artworkVisibility)}>
-                                    Add Artwork
-                                </button>
                               </div>
                             : 
                                 <button className="portfolioButton">Browse Store</button> 
                         }
                         {
-                                portfolio?.sections.map((section) => 
+                                sections?.map((section) => 
                                     <Section section={section}/>
                                 )
                         }                 
                     </div>
                     <SectionStart user={artist} visibility={sectionVisibility} setVisibility={setSectionVisibility} portfolio={portfolio} setPortfolio={setPortfolio} type={"portfolio"}/>
-                    <AddArtwork user={artist} visibility={artworkVisibility} setVisibility={setArtworkVisibility} portfolio={portfolio} setPortfolio={setPortfolio}/>
                 </div>
                 :
                     <div className="portfolioRight">
