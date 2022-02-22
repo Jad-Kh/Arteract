@@ -84,7 +84,7 @@ export default function Portfolio() {
                         }
                         {
                                 sections?.map((section) => 
-                                    <Section section={section}/>
+                                    <Section user={user} section={section}/>
                                 )
                         }                 
                     </div>

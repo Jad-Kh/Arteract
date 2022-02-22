@@ -4,19 +4,11 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import "./AddArtwork.css";
 
-export default function AddArtwork({user, visibility, setVisibility, portfolio, setPortfolio, options}) {
+export default function AddArtwork({user, visibility, setVisibility, section}) {
 
     const titleInputRef = createRef();
     const descInputRef = createRef();
     const [ file, setFile ] = useState();
-    const [ inputValue, setInputValue ] = useState();
-    const [ sections, setSections ] = useState([]);
-
-    useEffect(() => {
-        sections.includes(inputValue)
-        ? setSections(sections)
-        : setSections((prev) => [...prev, inputValue])
-    }, [inputValue])
 
     const handleClick = async(e) => {
         e.preventDefault()
@@ -26,6 +18,7 @@ export default function AddArtwork({user, visibility, setVisibility, portfolio, 
             description: descInputRef.current.value,
             status: "none",
             price: 0,
+            section,
         }
         if(file) {
             const data = new FormData();
@@ -41,13 +34,8 @@ export default function AddArtwork({user, visibility, setVisibility, portfolio, 
         }
         try {
             const newResponse = await axios.post("/artworks/", newArtwork);
-            var currentSection;
-            sections?.map( async(section) =>
-                currentSection = await axios.get("/sections/" + user._id + "/" + section),
-                await axios.put("/sections/" + currentSection.data._id + "/add/", { artId: newResponse.data._id })
-            )
+            await axios.put("/sections/" + section._id + "/add/", { artId: newResponse.data._id })
             setVisibility(!visibility);
-            setPortfolio(portfolio);
         } catch(error) {
             console.log(error);
         }
@@ -64,16 +52,6 @@ export default function AddArtwork({user, visibility, setVisibility, portfolio, 
                         <input placeholder="Description" type="text" className="addArtworkSubjectInputText" ref={descInputRef}/>
                         <input type="file" accept=".png,.jpeg,.jpg"
                                    onChange={ (e) => setFile(e.target.files[0]) }/>
-                        <Autocomplete
-                            options={options}
-                            style={{ width: 300 }}
-                            inputValue={inputValue} 
-                            onInputChange={(event, newInputValue) => {
-                                setInputValue(newInputValue)
-                            }}
-                            renderInput={(params) =>
-                            <TextField {...params} label="Choose your art type" variant="outlined" />}
-                        />
                         <button className="addArtworkStartButton" type="submit">Done</button>
                     </form>
                 </div>

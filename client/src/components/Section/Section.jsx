@@ -3,10 +3,12 @@ import { AddCircle, IndeterminateCheckBox } from "@material-ui/icons"
 import { useState, useEffect } from 'react'
 import axios from "axios"
 import PortfolioEntry from "../../components/PortfolioEntry/PortfolioEntry";
+import AddArtwork from "../../components/AddArtwork/AddArtwork";
 
-export default function Section({section}) {
+export default function Section({user, section}) {
 
     const [ hideState, setHideState ] = useState(true);
+    const [ visibility, setVisibility ] = useState(false);
     const [ artworks, setArtworks ] = useState([]);
 
     let focus = hideState ? "sectionContainer" : "sectionContainerFocused";
@@ -31,10 +33,14 @@ export default function Section({section}) {
             </div>
             <div className={focus}>
                 {
-                    section?.artworks?.map((artwork => 
-                        <PortfolioEntry artwork={artwork}/>
+                    section?.artworks?.map((artworkId => 
+                        <PortfolioEntry artworkId={artworkId}/>
                     ))
                 }
+                <button className="portfolioButton" onClick={() => {setVisibility(!visibility)}}>
+                    Add Artwork
+                </button>
+                <AddArtwork user={user} visibility={visibility} setVisibility={setVisibility} section={section}/>
             </div>
         </div>
     )
